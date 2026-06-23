@@ -1,0 +1,302 @@
+/* Project Styles */
+
+.project img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    padding-top: 20vh;
+    padding-bottom: 10vh;
+}
+
+.menu {
+    width: 100%;
+    margin: 0;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 0 2em;
+    display: flex;
+    cursor: pointer;
+}
+
+.menu p {
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    /* font-family: "PP Neue Montreal"; */
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    transition: color 0.25s;
+}
+
+.info,
+.name,
+.tag {
+    position: relative;
+    overflow: hidden;
+}
+
+.info,
+.tag {
+    flex: 1;
+    height: 14px;
+    font-size: 14px;
+}
+
+.tag {
+    text-align: right;
+}
+
+.name {
+    flex: 4;
+    height: 60px;
+    font-size: 60px;
+    text-align: center;
+}
+
+.info p:nth-child(2),
+.name p:nth-child(2),
+.tag p:nth-child(2) {
+    top: 100%;
+    color: #000;
+}
+
+.menu:hover .info p:nth-child(1),
+.menu:hover .name p:nth-child(1),
+.menu:hover .tag p:nth-child(1) {
+    color: rgb(165, 165, 165);
+}
+
+.preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 489px;
+    height: 275px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.preview-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.preview-img-2 {
+    top: 20px;
+    left: 20px;
+}
+
+.preview-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.media-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+}
+
+.media-content {
+    position: relative;
+    max-width: 800px;
+    width: auto;
+    max-height: 90vh;
+    background: #000;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Video styles */
+.media-content video {
+    width: 100%;
+    border-radius: 10px;
+    display: none;
+    /* Hidden by default */
+}
+
+/* Image styles */
+.media-content img {
+    width: auto;
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 10px;
+    display: none;
+    /* Hidden by default */
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s;
+}
+
+.close-btn:hover {
+    background: #ff4c4c;
+    color: #fff;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .project {
+        padding-top: 15vh;
+        /* Clear the marquee */
+        align-items: flex-start;
+        /* Start from top */
+        min-height: auto;
+    }
+
+    .menu {
+        margin-top: 50px;
+    }
+
+    .menu-item {
+        flex-direction: column;
+        padding: 30px 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 15px;
+    }
+
+    .info,
+    .name,
+    .tag {
+        position: relative;
+        overflow: visible;
+        /* Allow text to be seen fully */
+        height: auto;
+        flex: none;
+        /* Reset flex */
+    }
+
+    /* Category (Info) - Top Left */
+    .info {
+        order: 1;
+        text-align: left;
+        font-size: 16px;
+        width: 100%;
+        color: #666;
+    }
+
+    /* Name - Middle Right (Prominent) */
+    .name {
+        order: 2;
+        text-align: right;
+        font-size: 48px;
+        /* Larger font */
+        width: 100%;
+        line-height: 1.1;
+    }
+
+    /* Role (Tag) - Bottom Left */
+    .tag {
+        order: 3;
+        text-align: left;
+        font-size: 16px;
+        width: 100%;
+        color: #666;
+    }
+
+    /* Reset hover effects positions for mobile since we are stacking */
+    .info p:nth-child(2),
+    .name p:nth-child(2),
+    .tag p:nth-child(2) {
+        display: none;
+        /* Disable the secondary hover text on mobile to simplify */
+    }
+
+    .menu:hover .info p:nth-child(1),
+    .menu:hover .name p:nth-child(1),
+    .menu:hover .tag p:nth-child(1) {
+        color: inherit;
+        /* Remove hover gray-out effect on mobile */
+    }
+
+    .name p {
+        position: relative;
+        top: auto;
+    }
+
+    .info p,
+    .tag p {
+        position: relative;
+        top: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .project {
+        padding-top: 20vh;
+    }
+
+    .menu-item {
+        padding: 25px 20px;
+        gap: 10px;
+    }
+
+    .name {
+        font-size: 36px;
+    }
+
+    .info,
+    .tag {
+        font-size: 14px;
+    }
+
+    .close-btn {
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+}
+
+@media (max-width: 480px) {
+    .project {
+        padding-top: 150px;
+        /* Specific spacing for small screens */
+    }
+
+    .name {
+        font-size: 28px;
+    }
+
+    .menu-item {
+        padding: 20px 15px;
+    }
+}

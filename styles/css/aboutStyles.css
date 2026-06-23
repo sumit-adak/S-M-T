@@ -1,0 +1,141 @@
+.about {
+  width: 100%;
+  padding: 60px;
+  display: block;
+  justify-content: center;
+}
+
+.about h2 {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 30px;
+  line-height: 1.6;
+  text-align: left;
+  width: 70%;
+}
+
+.about .highlight {
+  color: var(--amber);
+  /* Accent Yellow */
+  font-weight: 900;
+}
+
+.about .accent {
+  color: var(--coral);
+  /* Soft gradient pinkish-red */
+  font-weight: 700;
+}
+
+/* Logo Marquee */
+.logoMarquee {
+  height: 200px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* Ensure overflow is hidden */
+  margin: 40px 0;
+}
+
+.marqueeInner {
+  display: flex;
+  width: max-content;
+  /* crucial for infinite scroll of variable width */
+  animation: scroll 40s linear infinite;
+  /* Increased base duration for desktop for smoothness */
+}
+
+/* Grouping container for logos */
+.logo-set {
+  display: flex;
+  gap: 100px;
+  /* Reduced gap for better density */
+  padding-right: 100px;
+  /* Maintain equal gap between sets */
+  align-items: center;
+}
+
+.marqueeInner img {
+  height: 80px;
+  /* Slightly smaller base size */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.marqueeInner img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* Infinite scroll animation */
+@keyframes scroll {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* About text / quotes */
+.aboutText {
+  width: 60%;
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.8;
+  margin-left: auto;
+  text-align: right;
+  font-style: italic;
+  padding-right: 20px;
+}
+
+@media (max-width: 1024px) {
+  .about {
+    padding: 40px;
+  }
+
+  .about h2 {
+    text-align: justify;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .logoMarquee {
+    margin: 20px 0;
+    height: 150px;
+  }
+
+  .logo-set {
+    gap: 50px;
+    padding-right: 50px;
+  }
+
+  .marqueeInner {
+    animation-duration: 15s;
+    /* Faster on mobile/tablet */
+  }
+
+  .marqueeInner img {
+    height: 60px;
+  }
+
+  .aboutText {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .marqueeInner {
+    animation-duration: 8s;
+    /* Even faster on small mobile */
+  }
+}

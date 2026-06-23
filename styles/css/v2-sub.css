@@ -1,0 +1,277 @@
+/* ============================================================
+   VEESHAL.ME — v2 overlay for subpages
+   (blogs · timeline · single articles)
+   Loads AFTER the page stylesheet and re-skins it to the
+   paper/ink/amber theme. No markup contracts are changed.
+   ============================================================ */
+
+/* reveal logic without needing a body class in every file:
+   content is hidden until loader.js adds .is-ready */
+body:not(.is-ready) {
+    overflow: hidden;
+    height: 100dvh;
+}
+
+body:not(.is-ready) .home,
+body:not(.is-ready) .site-footer,
+body:not(.is-ready) .footer {
+    opacity: 0;
+}
+
+body.is-ready .home,
+body.is-ready .site-footer,
+body.is-ready .footer {
+    opacity: 1;
+}
+
+.home {
+    background: var(--paper);
+}
+
+.homeContainer {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* ------------------------------------------------------------
+   sub-page hero strip
+   ------------------------------------------------------------ */
+.sub-hero {
+    padding: clamp(36px, 7vh, 80px) var(--gutter) clamp(20px, 4vh, 44px);
+    position: relative;
+    overflow: clip;
+}
+
+.sub-hero .section-kicker {
+    margin-bottom: 14px;
+}
+
+.sub-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(48px, 9vw, 130px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+}
+
+.sub-hero h1 .amber {
+    font-style: italic;
+}
+
+.sub-hero .sub-note {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 500;
+    max-width: 52ch;
+}
+
+/* ------------------------------------------------------------
+   BLOGS listing
+   ------------------------------------------------------------ */
+.blog-container {
+    padding: 0 var(--gutter) clamp(56px, 9vh, 110px);
+}
+
+.blog-category-title,
+.recent-posts-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: lowercase;
+    letter-spacing: -0.02em;
+}
+
+.blog-categories a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 99px;
+    transition: all 0.25s ease;
+}
+
+.blog-categories a.active {
+    background: var(--ink) !important;
+    color: var(--amber) !important;
+    border-color: var(--ink) !important;
+}
+
+.search-input {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: transparent !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 99px !important;
+    padding: 10px 20px !important;
+    color: var(--ink) !important;
+    transition: border-color 0.25s ease;
+}
+
+.search-input:focus {
+    border-color: var(--amber) !important;
+    outline: none;
+}
+
+/* cards */
+.blog-card {
+    border: 1px solid var(--line) !important;
+    border-radius: 18px !important;
+    background: var(--paper) !important;
+    overflow: hidden;
+    box-shadow: none !important;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease !important;
+}
+
+.blog-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 10px 10px 0 -3px var(--amber) !important;
+}
+
+.blog-image img {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.blog-card:hover .blog-image img {
+    transform: scale(1.07) !important;
+}
+
+.blog-info {
+    padding: 0 20px 24px !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+}
+
+.blog-title {
+    font-weight: 600 !important;
+    color: var(--ink) !important;
+}
+
+.blog-category-tag {
+    font-family: var(--font-mono) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    background: rgba(249, 182, 70, 0.18) !important;
+    color: var(--amber-deep) !important;
+    border-radius: 99px !important;
+    padding: 4px 12px !important;
+}
+
+.blog-date {
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    color: var(--muted) !important;
+}
+
+/* pagination */
+.pagination-container button,
+.pagination-container span {
+    font-family: var(--font-mono) !important;
+    font-size: 12px !important;
+    border-radius: 99px !important;
+    border: 1px solid var(--line) !important;
+    background: transparent !important;
+    color: var(--ink) !important;
+    padding: 8px 14px !important;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.pagination-container button:hover {
+    border-color: var(--ink) !important;
+}
+
+.pagination-container button.active,
+.pagination-container .active {
+    background: var(--ink) !important;
+    color: var(--amber) !important;
+    border-color: var(--ink) !important;
+}
+
+/* ------------------------------------------------------------
+   TIMELINE
+   ------------------------------------------------------------ */
+.timeline-title h1 {
+    font-family: var(--font-display) !important;
+    font-weight: 600 !important;
+    text-transform: lowercase;
+    letter-spacing: -0.03em !important;
+}
+
+.code-label {
+    font-family: var(--font-mono) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--line-dark);
+}
+
+.timeline-content {
+    border: 1px solid var(--line) !important;
+    border-radius: 18px !important;
+    background: var(--paper) !important;
+    box-shadow: none !important;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease !important;
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateY(-4px);
+    box-shadow: 10px 10px 0 -3px var(--amber) !important;
+}
+
+.timeline-content h2 {
+    font-family: var(--font-display) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+}
+
+.timeline-content .tag {
+    font-family: var(--font-mono) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    background: var(--amber) !important;
+    color: var(--ink) !important;
+    border-radius: 99px !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center;
+    padding: 5px 14px !important;
+}
+
+.date {
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    color: var(--muted) !important;
+}
+
+.timeline-image .img-slider {
+    border-radius: 18px !important;
+    overflow: hidden;
+    border: 1px solid var(--line);
+}
+
+/* ------------------------------------------------------------
+   SINGLE ARTICLES (blogs)  — light touch
+   ------------------------------------------------------------ */
+.blog-post-container h1,
+.single-blog h1,
+.post-header h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+article a,
+.blog-post-content a {
+    color: var(--amber-deep);
+}
+
+/* ------------------------------------------------------------
+   responsive guards
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+    .sub-hero h1 {
+        font-size: clamp(40px, 12vw, 72px);
+    }
+}

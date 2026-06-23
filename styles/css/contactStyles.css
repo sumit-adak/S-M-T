@@ -1,0 +1,316 @@
+/* Contact Section Styles */
+
+.contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+    /* Adjust padding as needed */
+    background: var(--paper);
+    /* Match page background */
+    min-height: 100vh;
+}
+
+.contact-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    /* Constrain max width for large screens */
+    background: var(--paper);
+    gap: 50px;
+    /* Space between image and form */
+}
+
+/* Left Column: Image */
+.contact-image {
+    flex: 1;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    /* Enforce square shape */
+    align-self: center;
+    /* Prevent stretching to match form height */
+    max-width: 500px;
+    /* Optional: Constrain it so it doesn't get too huge on large screens */
+    margin: 0 auto;
+}
+
+.contact-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Right Column: Content */
+.contact-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+.contact-content h1 {
+    font-size: 100px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: lowercase;
+}
+
+.contact-content h3 {
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 0.9;
+    text-transform: lowercase;
+}
+
+/* Form Groups with Floating Labels */
+.form-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* For absolute positioning of label */
+    margin-top: 20px;
+    /* Space for label when it floats up */
+}
+
+/* Input & Textarea Styling */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #000000;
+    background: transparent;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000;
+    outline: none;
+    border-radius: 0;
+    /* Remove default border-radius */
+    font-family: inherit;
+    /* Inherit font */
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+    /* Large descriptive text area */
+    line-height: 1.5;
+}
+
+/* Floating Label Styling */
+.form-group label {
+    position: absolute;
+    top: 10px;
+    /* Initial position (on top of input) */
+    left: 0;
+    font-size: 16px;
+    color: #555;
+    pointer-events: none;
+    /* Click through to input */
+    transition: all 0.3s ease;
+    transform-origin: left top;
+}
+
+/* Animation Logic */
+/* When input has focus OR placeholder is NOT shown (meaning it has value) */
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label,
+.form-group textarea:focus+label,
+.form-group textarea:not(:placeholder-shown)+label {
+    transform: translateY(-35px) scale(1.1);
+    /* Move up and enlarge slightly */
+    color: #000;
+    font-weight: 600;
+}
+
+/* Message Group (Specifics if needed, though .form-group handles it) */
+.message-group {
+    margin-bottom: 40px;
+    position: relative;
+    margin-top: 50px;
+}
+
+/* Selection Pills */
+.selection-group {
+    margin-bottom: 30px;
+}
+
+.selection-group label {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.pill-btn {
+    border: 1px solid #777;
+    background: transparent;
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 50px;
+    /* Pill shape */
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pill-btn:hover {
+    background: #eee;
+}
+
+.pill-btn.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* Investment Consideration - Just visual pills as well */
+.investment-group {
+    margin-bottom: 30px;
+}
+
+.investment-group label {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Message Input specific removal or merge into form-group above */
+
+/* Submit Button */
+.submit-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid #000;
+    color: #000;
+    padding: 12px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .contact-container {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .contact-image {
+        max-height: 400px;
+        order: 1;
+    }
+
+    .contact-content {
+        order: 2;
+        padding-left: 0;
+    }
+
+    .contact-content h1 {
+        font-size: 50px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .contact-content h3 {
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+/* Toast Notifications */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 300px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: translateX(100%);
+    animation: slideIn 0.3s ease forwards;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.toast.success {
+    border-left: 5px solid #28a745;
+}
+
+.toast.error {
+    border-left: 5px solid #dc3545;
+}
+
+.toast.hide {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 480px) {
+    #toast-container {
+        right: 50%;
+        transform: translateX(50%);
+        width: 90%;
+        top: 20px;
+    }
+
+    .toast {
+        width: 100%;
+        min-width: auto;
+    }
+}

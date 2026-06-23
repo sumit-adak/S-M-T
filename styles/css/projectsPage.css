@@ -1,0 +1,352 @@
+/* ============================================================
+   VEESHAL.ME — /projects  (the garage)
+   builds on css/v2.css tokens
+   ============================================================ */
+
+/* quick page-transition curtain (mini wheel spin-up) */
+.pt-curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pt-curtain svg {
+    width: 92px;
+    height: 92px;
+    animation: ptSpin 0.5s linear infinite;
+}
+
+@keyframes ptSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ------------------------------------------------------------
+   page hero
+   ------------------------------------------------------------ */
+.garage-hero {
+    position: relative;
+    padding: clamp(48px, 9vh, 110px) var(--gutter) clamp(36px, 6vh, 72px);
+    overflow: clip;
+}
+
+.garage-hero .hero-ghost {
+    top: auto;
+    bottom: -0.22em;
+}
+
+.garage-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(56px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+    position: relative;
+    z-index: 2;
+}
+
+.garage-title .line {
+    display: block;
+    overflow: hidden;
+}
+
+.garage-title .word {
+    display: inline-block;
+}
+
+.garage-sub {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: clamp(20px, 3.5vh, 36px);
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 500;
+    max-width: 100%;
+}
+
+.garage-sub p { max-width: 52ch; }
+
+.garage-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.garage-count .amber { color: var(--amber); }
+
+/* ------------------------------------------------------------
+   filter bar (sticky)
+   ------------------------------------------------------------ */
+.filter-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 14px var(--gutter);
+    background: rgba(5, 8, 22, 0.85);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.filter-bar .lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 10px;
+}
+
+.filter-btn {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 9px 20px;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--ink);
+}
+
+.filter-btn.active {
+    background: var(--ink);
+    color: var(--amber);
+    border-color: var(--ink);
+}
+
+.filter-btn .n {
+    color: var(--amber);
+    margin-left: 6px;
+}
+
+.filter-btn.active .n { color: var(--amber); }
+
+/* ------------------------------------------------------------
+   case-study entries
+   ------------------------------------------------------------ */
+.cases {
+    display: flex;
+    flex-direction: column;
+}
+
+.case {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(28px, 5vw, 88px);
+    align-items: center;
+    padding: clamp(56px, 10vh, 120px) var(--gutter);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+}
+
+.case.is-hidden { display: none; }
+
+.case:nth-child(even) .case-media { order: 2; }
+
+.case-num {
+    position: absolute;
+    top: clamp(18px, 3vh, 36px);
+    right: var(--gutter);
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: clamp(40px, 6vw, 88px);
+    font-weight: 500;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--line);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.case-media {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--paper-dim);
+    box-shadow: 18px 18px 0 -5px var(--amber);
+    cursor: pointer;
+}
+
+.case:nth-child(even) .case-media {
+    box-shadow: -18px 18px 0 -5px var(--secondary);
+}
+
+.case-media img {
+    width: 100%;
+    aspect-ratio: 16 / 10.5;
+    object-fit: cover;
+    transform: scale(1.08);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.case-media:hover img {
+    transform: scale(1.15);
+}
+
+.case-media .case-chip {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(17, 17, 16, 0.85);
+    color: var(--amber);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 99px;
+}
+
+.case-body .case-kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+.case-body .case-kicker::before {
+    content: "";
+    width: 30px;
+    height: 1px;
+    background: var(--amber);
+}
+
+.case-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(34px, 4.6vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    text-transform: lowercase;
+    margin-bottom: 18px;
+}
+
+.case-desc {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--muted);
+    max-width: 52ch;
+    margin-bottom: 26px;
+}
+
+.case-desc strong { color: var(--ink); }
+
+.case-meta {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: 12px clamp(24px, 3vw, 48px);
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    margin-bottom: 28px;
+}
+
+.case-meta dt {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.case-meta dd {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.case-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ------------------------------------------------------------
+   bottom CTA
+   ------------------------------------------------------------ */
+.garage-outro {
+    text-align: center;
+    padding: clamp(72px, 13vh, 150px) var(--gutter);
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: clip;
+}
+
+.garage-outro .ot {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(36px, 6vw, 88px);
+    line-height: 1;
+    text-transform: lowercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+}
+
+.garage-outro .btn-pill {
+    border-color: var(--amber);
+    color: var(--amber);
+}
+
+.garage-outro .btn-pill:hover {
+    background: var(--amber);
+    color: var(--ink);
+}
+
+/* ------------------------------------------------------------
+   responsive
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+    .case {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .case:nth-child(even) .case-media { order: 0; }
+
+    .case-num { top: 12px; }
+}
+
+@media (max-width: 640px) {
+    .case-meta {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .filter-bar {
+        gap: 6px;
+    }
+
+    .filter-btn {
+        padding: 8px 14px;
+        font-size: 11px;
+    }
+}

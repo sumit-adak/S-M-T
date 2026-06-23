@@ -1,0 +1,616 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+}
+
+:root {
+    --circle-outline: #505050;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    -ms-overflow-style: none;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--paper);
+    color: #000;
+    line-height: 1.5;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    /* Fallback */
+    height: 100dvh;
+    background: var(--paper);
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.counter {
+    position: fixed;
+    bottom: 2rem;
+    right: 4rem;
+    color: #505050;
+    font-size: 10vw;
+    font-weight: lighter;
+    font-style: italic;
+    z-index: 1000;
+}
+
+.site-teaser {
+    position: absolute;
+    top: 2rem;
+    right: 4rem;
+}
+
+.site-teaser span {
+    color: #505050;
+    font-size: 1rem;
+    font-weight: lighter;
+    font-style: italic;
+}
+
+/* Wheel Structure */
+.wheel {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    /* Ensure wheel scales on small screens */
+    max-width: 90vw;
+    max-height: 90vw;
+}
+
+/* Tyre (Outer circle) */
+.tyre {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background: #1a1a1a;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Rim (Middle circle) */
+.rim {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    border-radius: 100%;
+    background: linear-gradient(135deg, #444, #222);
+    border: 1px solid #505050;
+}
+
+/* Spokes Container */
+.spokes-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+}
+
+/* Individual Spoke */
+.spoke {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45%;
+    height: 6px;
+    background: #333;
+    transform-origin: 0 50%;
+    border-radius: 2px;
+}
+
+/* Central bmw-logo */
+.bmw-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+    height: 15%;
+    border-radius: 100%;
+    border: 1px solid #505050;
+    background: var(--paper);
+    overflow: hidden;
+}
+
+/* BMW bmw-logo Quarters */
+.bmw-logo-quarter {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+}
+
+.bmw-logo-quarter:nth-child(1) {
+    top: 0;
+    left: 0;
+    background-color: #1a1a1a;
+}
+
+.bmw-logo-quarter:nth-child(2) {
+    top: 0;
+    right: 0;
+    background-color: var(--paper);
+}
+
+.bmw-logo-quarter:nth-child(3) {
+    bottom: 0;
+    left: 0;
+    background-color: var(--paper);
+}
+
+.bmw-logo-quarter:nth-child(4) {
+    bottom: 0;
+    right: 0;
+    background-color: #1a1a1a;
+}
+
+/* Bolts on Rim */
+.bolt {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #999;
+    border-radius: 50%;
+    border: 1px solid #666;
+    transform: translate(-50%, -50%);
+    /* Center the bolt on its position */
+}
+
+.top {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.space-up {
+    margin-top: 20px;
+}
+
+.space-down {
+    margin-bottom: 20px;
+}
+
+.line {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #E0E0E0;
+    width: 95%;
+}
+
+/* Header/Footer & Navigation */
+header,
+footer {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: 100px;
+    object-fit: cover;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.home {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    background: var(--paper);
+    z-index: 12;
+}
+
+/* Main Content */
+.homeContainer,
+.footerContainer {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0 20px 20px 20px;
+}
+
+.homeContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 40px;
+}
+
+.content-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content-right {
+    flex: 1;
+}
+
+/* Typography */
+.homeTxt {
+    font-size: 150px;
+    line-height: 0.9;
+    font-weight: 900;
+    text-align: right;
+    text-transform: lowercase;
+    margin-bottom: 10px;
+}
+
+.welcome-text {
+    font-size: 18px;
+    max-width: 100%;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    margin-left: -5px;
+    /* Overlapping effect */
+}
+
+/* Ensure the first icon doesn't get pushed left */
+.social-icon:first-child {
+    margin-left: 0;
+}
+
+.social-icon:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Resume Button */
+.resume-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    padding: 0 25px;
+    border: 2px solid #000;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    gap: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.resume-btn:hover {
+    background: transparent;
+    color: #000;
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stats a {
+    text-decoration: none;
+}
+
+.stat-item h2 {
+    font-size: 60px;
+    line-height: 1;
+    font-weight: 900;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    font-size: 14px;
+    text-align: right;
+    max-width: 250px;
+    font-weight: 600;
+}
+
+/* Feature Card */
+.feature-card {
+    border-radius: 30px;
+    height: 100%;
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+}
+
+.feature-card img {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    /* or a specific value */
+    height: auto;
+    /* Maintains aspect ratio */
+    object-fit: cover;
+    /* Ensures it covers the container without distortion */
+}
+
+.highlight {
+    color: var(--amber);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+
+    .homeContainer,
+    .footerContainer {
+        padding: 0 20px 40px 20px;
+    }
+
+    .homeContent {
+        flex-direction: column-reverse;
+        /* Image On Top */
+        gap: 50px;
+        align-items: center;
+    }
+
+    .content-left {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .homeTxt {
+        font-size: 100px;
+        text-align: center;
+    }
+
+    .welcome-text {
+        text-align: center;
+        width: 100%;
+    }
+
+    .social-icons {
+        justify-content: center;
+        margin: 20px 0;
+        flex-wrap: wrap;
+        /* Allow wrapping */
+    }
+
+    /* Force resume button to new line on mobile/tab */
+    .resume-btn {
+        width: 80%;
+        margin-left: 0;
+        margin-top: 15px;
+    }
+
+    .social-icons .line {
+        display: none;
+    }
+
+    .stats {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        width: 100%;
+    }
+
+    .stat-item h2 {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .stat-item p {
+        text-align: center;
+    }
+
+    .content-right {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .feature-card {
+        padding: 0;
+        min-height: auto;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    /* Reordering: Logos on sides, Nav below */
+    header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+        padding: 20px 0;
+    }
+
+    footer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        padding: 20px 0;
+    }
+
+    /* First logo (default order is fine, but being explicit helps) */
+    .logo:first-child {
+        order: 1;
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    /* Second logo (India flag) - needs to be moved to order 2 */
+    .logo:last-child {
+        order: 2;
+        width: auto;
+        justify-content: flex-end;
+    }
+
+    /* Navigation - force to new line (order 3) */
+    nav {
+        order: 3;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav ul {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .homeTxt {
+        font-size: 60px;
+        margin-top: 10px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        gap: 15px 25px;
+    }
+
+    .stats {
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 30px;
+    }
+
+    .stat-item h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .homeTxt {
+        font-size: 50px;
+    }
+
+    nav ul {
+        gap: 10px 20px;
+    }
+
+
+    .stats {
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+}
+
+/* Mobile Loader Positioning */
+@media (max-width: 768px) {
+    .counter {
+        right: 1.5rem;
+        bottom: 1.5rem;
+        font-size: 15vw;
+        /* Slightly larger on mobile for visibility */
+    }
+
+    .site-teaser {
+        right: 1.5rem;
+        top: 1.5rem;
+    }
+
+    .wheel {
+        /* On smaller screens, the max-width: 90vw handles the size,
+           but we might want to ensure it doesn't get too small or too big */
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wheel {
+        width: 250px;
+        height: 250px;
+    }
+
+    .counter {
+        right: 1rem;
+        bottom: 1rem;
+    }
+
+    .site-teaser {
+        right: 1rem;
+        top: 1rem;
+    }
+}

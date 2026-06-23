@@ -1,0 +1,163 @@
+[
+  {
+    "title": "JavaScript Operators: The Basics You Need to Know",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fgd13jf7crx0nffnb0szj.jpg",
+    "link": "javascript-operators-basics"
+  },
+  {
+    "title": "The Magic of this, call(), apply(), and bind() in JavaScript",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2z8d8uo9p763mb5mc1rn.webp",
+    "link": "the-magic-of-this-call-apply-bind-in-javascript"
+  },
+  {
+    "title": "Function Declaration vs Function Expression: What’s the Difference?",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://blog.thitainfo.com/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fuploads%2Fcovers%2F6185effafd5d634d0169926f%2Fc896a9b8-0227-4b9a-9323-6d48e02e2427.png&w=3840&q=75",
+    "link": "function-declaration-vs-function-expression"
+  },
+  {
+    "title": "JavaScript Arrays 101",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://media2.dev.to/dynamic/image/width=1280,height=720,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ftqo1rab6eznma8tzwzcl.webp",
+    "link": "javascript-arrays-101"
+  },
+  {
+    "title": "Understanding Object-Oriented Programming in JavaScript",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://miro.medium.com/0*wgDCQoZtprrPg272.jpg",
+    "link": "understanding-oop-in-javascript"
+  },
+  {
+    "title": "Understanding Objects in JavaScript",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://blog.thitainfo.com/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fuploads%2Fcovers%2F6185effafd5d634d0169926f%2F5e436a36-838c-42ca-8340-8fb929ad9fc8.png&w=3840&q=75",
+    "link": "understanding-objects-in-javascript"
+  },
+  {
+    "title": "Understanding Variables and Data Types in JavaScript",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*qvAJkRLtYnnVFTScPjgWPA.jpeg",
+    "link": "understanding-variables-and-data-types-in-javascript"
+  },
+  {
+    "title": "Control Flow in JavaScript: If, Else, and Switch Explained",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ej4NUhE3AOp0DVBJR3WA5w.png",
+    "link": "control-flow-in-javascript"
+  },
+  {
+    "title": "Arrow Functions in JavaScript: A Simpler Way to Write Functions",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/0*-OKyZav_Yo-3ZIrb",
+    "link": "arrow-functions-in-javascript"
+  },
+  {
+    "title": "Array Methods You Must Know",
+    "date": "15 Mar 2026",
+    "category": "JavaScript",
+    "image": "https://miro.medium.com/v2/resize:fit:1400/1*-1JKUVOs2X9xkmIb-KmKKA.jpeg",
+    "link": "array-methods-you-must-know"
+  },
+  {
+    "title": "Emmet for HTML: A Beginner’s Guide to Writing Faster Markup",
+    "date": "27 Jan 2026",
+    "category": "HTML & CSS",
+    "image": "https://www.alphr.com/wp-content/uploads/2023/10/emmet-nedir-ve-ne-ise-yarar-1280x720.jpg",
+    "link": "emmet-for-html"
+  },
+  {
+    "title": "CSS Selectors 101: Targeting Elements with Precision",
+    "date": "25 Jan 2026",
+    "category": "HTML & CSS",
+    "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fnl1rxl108tb77t4ch3g3.png",
+    "link": "css-selectors-101"
+  },
+  {
+    "title": "Understanding HTML Tags and Elements",
+    "date": "24 Jan 2026",
+    "category": "HTML & CSS",
+    "image": "https://i.ytimg.com/vi/mekRKzHByEQ/maxresdefault.jpg",
+    "link": "understanding-html-tags-and-elements"
+  },
+  {
+    "title": "How a Browser Works: A Beginner-Friendly Guide",
+    "date": "23 Jan 2026",
+    "category": "HTML & CSS",
+    "image": "https://ineasysteps.com/wp-content/uploads/2021/11/How-to-web-browsers-work-image.jpg",
+    "link": "how-a-browser-works"
+  },
+  {
+    "title": "TCP Working: 3-Way Handshake & Reliable Communication",
+    "date": "22 Jan 2026",
+    "category": "Software development",
+    "image": "https://i.ytimg.com/vi/_inkLnDbia0/sddefault.jpg",
+    "link": "tcp-working"
+  },
+  {
+    "title": "TCP vs UDP: When to Use What",
+    "date": "21 Jan 2026",
+    "category": "Software development",
+    "image": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ZPtAG6N2qQB_iIFzEtPP7Q.png",
+    "link": "tcp-vs-udp"
+  },
+  {
+    "title": "Understanding Network Devices",
+    "date": "20 Jan 2026",
+    "category": "Software development",
+    "image": "https://media2.dev.to/dynamic/image/width=1280,height=720,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F9uj3ypmyimbvite0dgu2.jpeg",
+    "link": "understanding-network-devices"
+  },
+  {
+    "title": "How DNS Resolution Works",
+    "date": "19 Jan 2026",
+    "category": "Software development",
+    "image": "https://media.geeksforgeeks.org/wp-content/uploads/20250801171021517035/address_resolution_in_dns.webp",
+    "link": "how-dns-resolution-works"
+  },
+  {
+    "title": "Getting Started with cURL",
+    "date": "18 Jan 2026",
+    "category": "Software development",
+    "image": "https://curl.se/logo/curl-logo.svg",
+    "link": "getting-started-with-curl"
+  },
+  {
+    "title": "DNS Record Types Explained",
+    "date": "17 Jan 2026",
+    "category": "Software development",
+    "image": "https://www.cloudflare.com/img/learning/dns/what-is-dns/dns-lookup-diagram.png",
+    "link": "dns-record-types-explained"
+  },
+  {
+    "title": "Why Version Control Exists: The Pendrive Problem",
+    "date": "16 Jan 2026",
+    "category": "Software development",
+    "image": "https://media2.dev.to/dynamic/image/width=1280,height=720,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fmjsud8ijzeytlosc6w49.png",
+    "link": "why-version-control-exists"
+  },
+  {
+    "title": "Inside Git: How It Works and the Role of the .git Folder",
+    "date": "16 Jan 2026",
+    "category": "Software development",
+    "image": "https://camo.githubusercontent.com/79c5248e3ba42801c55213b83f56bc8e0d39ebf6834498e56e9733f0fa87ccf4/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f76322f726573697a653a6669743a313430302f312a36536278616a4d6468536639365073507972545a47672e706e67",
+    "link": "inside-git-how-it-works"
+  },
+  {
+    "title": "Git for Beginners: Basics and Essential Commands",
+    "date": "13 Jan 2026",
+    "category": "Software development",
+    "image": "https://pub-fe9b85f97c6a4773bbf0ceb5f53c430b.r2.dev/blogs/git-for-beginners/working-dir.png",
+    "link": "git-for-beginners"
+  }
+]

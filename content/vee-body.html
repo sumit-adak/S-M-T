@@ -1,0 +1,54 @@
+<!-- login -->
+    <div class="login-wrap" id="loginView">
+        <form class="login-card" id="loginForm">
+            <h1>vee<span class="amber">.</span> control room</h1>
+            <p class="sub">sign in to manage the site</p>
+            <div class="field">
+                <label for="loginEmail">email</label>
+                <input id="loginEmail" type="email" autocomplete="username" required>
+            </div>
+            <div class="field">
+                <label for="loginPass">password</label>
+                <input id="loginPass" type="password" autocomplete="current-password" required>
+            </div>
+            <button class="btn" id="loginBtn" type="submit">start engine →</button>
+            <p class="err" id="loginErr"></p>
+        </form>
+    </div>
+
+    <!-- app -->
+    <div class="shell" id="app">
+        <aside>
+            <div class="brand">vee<span class="amber">.</span></div>
+            <div id="navBtns"></div>
+            <div class="foot">
+                <button class="btn ghost sm" id="logoutBtn">logout</button>
+            </div>
+        </aside>
+
+        <main>
+            <div class="page-head">
+                <h2 id="secTitle">settings</h2>
+                <div class="head-right">
+                    <span class="live-dot">realtime</span>
+                    <button class="btn sm" id="addBtn" style="display:none;">+ add new</button>
+                </div>
+            </div>
+            <p class="hint" id="secHint"></p>
+            <div id="content"></div>
+        </main>
+    </div>
+
+    <!-- modal -->
+    <div class="modal" id="modal">
+        <form class="modal-card" id="modalForm">
+            <h3 id="modalTitle">edit</h3>
+            <div id="modalFields"></div>
+            <div class="modal-acts">
+                <button type="button" class="btn ghost sm" id="modalCancel">cancel</button>
+                <button type="submit" class="btn sm" id="modalSave">save</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="toast"></div>

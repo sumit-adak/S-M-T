@@ -1,0 +1,19 @@
+# dependencies / build
+/node_modules
+/.next
+/out
+next-env.d.ts
+
+# env / secrets
+.env
+.env*.local
+
+# OS
+.DS_Store
+
+# large local videos (the site streams these from R2, not from /public)
+/public/assets/GDG.mp4
+/public/assets/HITR.mp4
+/public/assets/open-mic.mp4
+
+.env.local
