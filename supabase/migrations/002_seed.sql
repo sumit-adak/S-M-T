@@ -15,12 +15,12 @@ insert into public.site_settings (key, value) values ('contact_email', '"sumitba
 insert into public.site_settings (key, value) values ('hero', '{"eyebrow": "full stack developer \u2014 AI innovator", "title_1": "Sumit", "title_2": "Adak", "copy": "Welcome to a digital space that blends code & creativity, where every build tells a story. Engineered with precision & crafted with passion."}'::jsonb) on conflict (key) do update set value = excluded.value, updated_at = now();
 insert into public.site_settings (key, value) values ('stats', '[{"value": 5, "suffix": "", "label": "Developed Live", "link_text": "Coding Projects", "link": "projects"}, {"value": 15, "suffix": "", "label": "Edited High-Quality", "link_text": "Video Projects", "link": "projects"}, {"value": 50, "suffix": "k", "label": "Monthly Visitors for", "link_text": "Bodo Okhrang", "link": "https://bodookhrang.com"}]'::jsonb) on conflict (key) do update set value = excluded.value, updated_at = now();
 
-insert into public.social_links (label, url, sort) values ('yt', 'https://www.youtube.com/@vxwshxl', 0);
-insert into public.social_links (label, url, sort) values ('ig', 'https://www.instagram.com/vxwshxl', 1);
-insert into public.social_links (label, url, sort) values ('git', 'https://github.com/vxwshxl', 2);
-insert into public.social_links (label, url, sort) values ('in', 'https://www.linkedin.com/in/vxwshxl', 3);
-insert into public.social_links (label, url, sort) values ('x', 'https://x.com/vxwshxl', 4);
-insert into public.social_links (label, url, sort) values ('fb', 'https://www.facebook.com/vxwshxl', 5);
+insert into public.social_links (label, url, sort) values ('yt', 'https://www.youtube.com/@sumitadak', 0);
+insert into public.social_links (label, url, sort) values ('ig', 'https://www.instagram.com/async_sumit', 1);
+insert into public.social_links (label, url, sort) values ('git', 'https://github.com/sumit-adak', 2);
+insert into public.social_links (label, url, sort) values ('in', 'https://www.linkedin.com/in/Sumit-Adak1', 3);
+insert into public.social_links (label, url, sort) values ('x', 'https://x.com/sumitadak', 4);
+insert into public.social_links (label, url, sort) values ('fb', 'https://www.facebook.com/sumitadak', 5);
 
 insert into public.featured_projects (info, name, tag, url, video, image, hover_src, sort) values ('A.I. Tool', 'Bodo Okhrang', 'Web Development', 'https://bodookhrang.com', null, null, 'assets/projects/1.webp', 0);
 insert into public.featured_projects (info, name, tag, url, video, image, hover_src, sort) values ('E-COMMERCE Tool', 'FlopShop', 'Web Development/PWA', 'https://flopshop.vercel.app', null, null, 'assets/projects/12.webp', 1);

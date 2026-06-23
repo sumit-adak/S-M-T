@@ -52,7 +52,7 @@ export default async function Home() {
   if (!socials) {
     socials = [
       { label: 'git', url: 'https://github.com/sumit-adak' },
-      { label: 'in', url: 'https://www.linkedin.com/in/sumitadak' },
+      { label: 'in', url: 'https://www.linkedin.com/in/Sumit-Adak1' },
       { label: 'ig', url: 'https://www.instagram.com/async_sumit' },
       { label: 'x', url: 'https://x.com/sumitadak' },
     ];
