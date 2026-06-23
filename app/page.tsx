@@ -65,8 +65,8 @@ export default async function Home() {
   if (typeof contactEmail !== 'string' || !contactEmail) contactEmail = 'sumitbackend1@gmail.com';
 
   const heroCfg = (await sbSetting<any>('hero', {})) || {};
-  const heroT1 = heroCfg.title_1 ?? 'code';
-  const heroT2 = heroCfg.title_2 ?? 'create';
+  const heroT1 = heroCfg.title_1 ?? 'Sumit';
+  const heroT2 = heroCfg.title_2 ?? 'Adak';
   const heroEyebrow = heroCfg.eyebrow ?? 'full stack developer — AI innovator';
   const heroCopy =
     heroCfg.copy ??
@@ -203,7 +203,14 @@ export default async function Home() {
 
               <h1 className="hero-title">
                 <span className="line"><span className="word">{heroT1}</span></span>
-                <span className="line"><span className="word amp">&amp;</span>&nbsp;<span className="word">{heroT2}</span></span>
+                <span className="line">
+                  {heroT1.toLowerCase() !== 'sumit' && (
+                    <>
+                      <span className="word amp">&amp;</span>&nbsp;
+                    </>
+                  )}
+                  <span className="word">{heroT2}</span>
+                </span>
               </h1>
 
               <svg className="hero-swoosh" viewBox="0 0 420 40" aria-hidden="true">
