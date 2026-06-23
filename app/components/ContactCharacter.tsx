@@ -216,7 +216,7 @@ function CinematicLighting() {
 // PROCEDURAL FINGER COMPONENT
 // ============================================================
 type FingerProps = {
-  curl: number;
+  getCurl: () => number;
   length: number;
   thickness: number;
   rotationOffset?: [number, number, number];
@@ -224,10 +224,18 @@ type FingerProps = {
   mats: ReturnType<typeof usePremiumMaterials>;
 };
 
-function Finger({ curl, length, thickness, rotationOffset = [0, 0, 0], positionOffset, mats }: FingerProps) {
-  const joint1Rot = curl * 0.9;
-  const joint2Rot = curl * 0.9;
-  const joint3Rot = curl * 0.6;
+function Finger({ getCurl, length, thickness, rotationOffset = [0, 0, 0], positionOffset, mats }: FingerProps) {
+  const g1Ref = useRef<THREE.Group>(null);
+  const g2Ref = useRef<THREE.Group>(null);
+  const g3Ref = useRef<THREE.Group>(null);
+
+  useFrame(() => {
+    if (!g1Ref.current || !g2Ref.current || !g3Ref.current) return;
+    const curl = getCurl();
+    g1Ref.current.rotation.x = curl * 0.9;
+    g2Ref.current.rotation.x = curl * 0.9;
+    g3Ref.current.rotation.x = curl * 0.6;
+  });
 
   return (
     <group position={positionOffset} rotation={rotationOffset}>
@@ -238,7 +246,7 @@ function Finger({ curl, length, thickness, rotationOffset = [0, 0, 0], positionO
       </mesh>
 
       {/* Phalanx 1 */}
-      <group rotation={[joint1Rot, 0, 0]}>
+      <group ref={g1Ref}>
         <mesh castShadow position={[0, length * 0.2, 0]}>
           <cylinderGeometry args={[thickness, thickness, length * 0.4, 12]} />
           <meshPhysicalMaterial color={mats.matteBlack.color} roughness={0.25} metalness={0.9} />
@@ -252,7 +260,7 @@ function Finger({ curl, length, thickness, rotationOffset = [0, 0, 0], positionO
           </mesh>
 
           {/* Phalanx 2 */}
-          <group rotation={[joint2Rot, 0, 0]}>
+          <group ref={g2Ref}>
             <mesh castShadow position={[0, length * 0.15, 0]}>
               <cylinderGeometry args={[thickness * 0.9, thickness * 0.9, length * 0.3, 10]} />
               <meshPhysicalMaterial color={mats.matteBlack.color} roughness={0.25} metalness={0.9} />
@@ -266,7 +274,7 @@ function Finger({ curl, length, thickness, rotationOffset = [0, 0, 0], positionO
               </mesh>
 
               {/* Phalanx 3 / Tip */}
-              <group rotation={[joint3Rot, 0, 0]}>
+              <group ref={g3Ref}>
                 <mesh castShadow position={[0, length * 0.1, 0]}>
                   <cylinderGeometry args={[thickness * 0.8, thickness * 0.6, length * 0.2, 10]} />
                   <meshPhysicalMaterial color={mats.graphite.color} roughness={0.15} metalness={0.9} />
@@ -402,6 +410,9 @@ function PremiumMascot({ charState, mouse }: RobotProps) {
     eyeBlinkL: 1.0, eyeBlinkR: 1.0,
     spinVelocity: 0.0,
     nodAngle: 0.0,
+    idleAction: 'none' as 'none' | 'wave' | 'heart' | 'thumbs-up' | 'scratch',
+    idleActionTimer: 0.0,
+    idleStateTimer: 6.0,
   });
 
   const blinkTimer = useRef(Math.random() * 3 + 2);
@@ -498,6 +509,28 @@ function PremiumMascot({ charState, mouse }: RobotProps) {
     let hx = 0, hy = 0, hz = 0;
     let mx = mouse.current.x * 0.32;
     let my = mouse.current.y * 0.22;
+
+    // === IDLE CYCLE STATE MANAGER ===
+    if (charState === 'idle') {
+      j.idleStateTimer -= dt;
+      if (j.idleStateTimer <= 0 && j.idleAction === 'none') {
+        const actions = ['wave', 'heart', 'thumbs-up', 'scratch'] as const;
+        j.idleAction = actions[Math.floor(Math.random() * actions.length)];
+        j.idleActionTimer = 4.0 + Math.random() * 3.0;
+      }
+
+      if (j.idleAction !== 'none') {
+        j.idleActionTimer -= dt;
+        if (j.idleActionTimer <= 0) {
+          j.idleAction = 'none';
+          j.idleStateTimer = 8.0 + Math.random() * 10.0;
+        }
+      }
+    } else {
+      j.idleAction = 'none';
+      j.idleActionTimer = 0;
+      j.idleStateTimer = 6.0;
+    }
 
     // Default target parameters
     let tLX = 0.1, tLY = 0, tLZ = 0.1, tLEX = -0.15, tLWX = 0, tLWY = 0, tLWZ = 0, tLIndex = 0.25, tLOther = 0.25, tLThumb = 0.2;
@@ -635,6 +668,78 @@ function PremiumMascot({ charState, mouse }: RobotProps) {
         tLOther = 0.25 + twitchL;
         tRIndex = 0.25 + twitchR;
         tROther = 0.25 + twitchR;
+
+        // Apply idle actions override
+        if (j.idleAction === 'wave') {
+          tRX = -0.6;
+          tRY = 0.4;
+          tRZ = -1.2;
+          tREX = -1.2;
+          tRWZ = Math.sin(t * 9.0) * 0.35;
+          tRWX = -0.25;
+          tRIndex = 0.0;
+          tROther = 0.0;
+          tRThumb = -0.2;
+          
+          hz = 0.15;
+          hx = 0.05 + Math.sin(t * 2.0) * 0.02;
+        } 
+        else if (j.idleAction === 'heart') {
+          tLX = -0.2;
+          tLY = 0.35;
+          tLZ = 0.5;
+          tLEX = -1.0;
+          tLWX = 0.25;
+          tLWY = -0.3;
+          tLWZ = 0.4;
+          tLIndex = 0.3;
+          tLOther = 0.8;
+          tLThumb = 0.3;
+
+          tRX = -0.2;
+          tRY = -0.35;
+          tRZ = -0.5;
+          tREX = -1.0;
+          tRWX = 0.25;
+          tRWY = 0.3;
+          tRWZ = -0.4;
+          tRIndex = 0.3;
+          tROther = 0.8;
+          tRThumb = 0.3;
+
+          hx = 0.12 + Math.sin(t * 4.0) * 0.04;
+          hz = Math.sin(t * 2.5) * 0.08;
+        }
+        else if (j.idleAction === 'thumbs-up') {
+          tRX = -0.4;
+          tRY = 0.2;
+          tRZ = -0.8;
+          tREX = -0.9;
+          tRWX = 0.2;
+          tRWY = 0.4;
+          tRWZ = -0.2;
+          tRIndex = 1.0;
+          tROther = 1.0;
+          tRThumb = -0.6;
+
+          hy = -0.15;
+          hx = 0.08 + Math.abs(Math.sin(t * 3.0)) * 0.1;
+        }
+        else if (j.idleAction === 'scratch') {
+          tLX = -1.0;
+          tLY = 0.4;
+          tLZ = 0.7;
+          tLEX = -1.8;
+          tLWX = 0.4 + Math.sin(t * 11.0) * 0.15;
+          tLWY = -0.3;
+          tLWZ = 0.2;
+          tLIndex = 0.4;
+          tLOther = 0.4;
+
+          hz = -0.16;
+          hx = 0.08;
+          hy = -0.12;
+        }
         break;
     }
 
@@ -947,10 +1052,10 @@ function PremiumMascot({ charState, mouse }: RobotProps) {
                     <RoundedBox args={[0.055, 0.036, 0.016]} radius={0.005} smoothness={4} material={mats.graphite} castShadow />
 
                     {/* Left articulated fingers */}
-                    <Finger positionOffset={[0.02, -0.018, 0]} length={0.045} thickness={0.005} curl={joints.current.lIndexCurl} mats={mats} />
-                    <Finger positionOffset={[0.0, -0.019, 0]} length={0.05} thickness={0.005} curl={joints.current.lOtherCurl} mats={mats} />
-                    <Finger positionOffset={[-0.02, -0.017, 0]} length={0.04} thickness={0.0048} curl={joints.current.lOtherCurl} mats={mats} />
-                    <Finger positionOffset={[0.03, -0.008, 0.005]} length={0.032} thickness={0.0055} curl={joints.current.lThumbCurl} rotationOffset={[0, -0.4, -0.8]} mats={mats} />
+                    <Finger positionOffset={[0.02, -0.018, 0]} length={0.045} thickness={0.005} getCurl={() => joints.current.lIndexCurl} mats={mats} />
+                    <Finger positionOffset={[0.0, -0.019, 0]} length={0.05} thickness={0.005} getCurl={() => joints.current.lOtherCurl} mats={mats} />
+                    <Finger positionOffset={[-0.02, -0.017, 0]} length={0.04} thickness={0.0048} getCurl={() => joints.current.lOtherCurl} mats={mats} />
+                    <Finger positionOffset={[0.03, -0.008, 0.005]} length={0.032} thickness={0.0055} getCurl={() => joints.current.lThumbCurl} rotationOffset={[0, -0.4, -0.8]} mats={mats} />
                   </group>
                 </group>
               </group>
@@ -1010,10 +1115,10 @@ function PremiumMascot({ charState, mouse }: RobotProps) {
                     <RoundedBox args={[0.055, 0.036, 0.016]} radius={0.005} smoothness={4} material={mats.graphite} castShadow />
 
                     {/* Right articulated fingers */}
-                    <Finger positionOffset={[-0.02, -0.018, 0]} length={0.045} thickness={0.005} curl={joints.current.rIndexCurl} mats={mats} />
-                    <Finger positionOffset={[0.0, -0.019, 0]} length={0.05} thickness={0.005} curl={joints.current.rOtherCurl} mats={mats} />
-                    <Finger positionOffset={[0.02, -0.017, 0]} length={0.04} thickness={0.0048} curl={joints.current.rOtherCurl} mats={mats} />
-                    <Finger positionOffset={[-0.03, -0.008, 0.005]} length={0.032} thickness={0.0055} curl={joints.current.rThumbCurl} rotationOffset={[0, 0.4, 0.8]} mats={mats} />
+                    <Finger positionOffset={[-0.02, -0.018, 0]} length={0.045} thickness={0.005} getCurl={() => joints.current.rIndexCurl} mats={mats} />
+                    <Finger positionOffset={[0.0, -0.019, 0]} length={0.05} thickness={0.005} getCurl={() => joints.current.rOtherCurl} mats={mats} />
+                    <Finger positionOffset={[0.02, -0.017, 0]} length={0.04} thickness={0.0048} getCurl={() => joints.current.rOtherCurl} mats={mats} />
+                    <Finger positionOffset={[-0.03, -0.008, 0.005]} length={0.032} thickness={0.0055} getCurl={() => joints.current.rThumbCurl} rotationOffset={[0, 0.4, 0.8]} mats={mats} />
                   </group>
                 </group>
               </group>
@@ -1079,36 +1184,36 @@ function PremiumMascot({ charState, mouse }: RobotProps) {
             {/* Outer LED ring */}
             <mesh>
               <ringGeometry args={[0.044, 0.054, 32]} />
-              <meshStandardMaterial color="#8B5CF6" emissive="#8B5CF6" emissiveIntensity={4.5} />
+              <meshStandardMaterial color="#ffffff" emissive="#DDD6FE" emissiveIntensity={3.5} />
             </mesh>
             {/* Inner eye dot */}
             <mesh>
               <circleGeometry args={[0.034, 32]} />
-              <meshStandardMaterial color="#c4b5fd" emissive="#8B5CF6" emissiveIntensity={6.0} />
+              <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={5.0} />
             </mesh>
             {/* Eye lens highlight reflection */}
             <mesh position={[0.01, 0.01, 0.002]}>
               <circleGeometry args={[0.008, 16]} />
               <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={2.5} />
             </mesh>
-            <pointLight position={[0, 0, 0.03]} distance={0.3} intensity={0.6} color="#8B5CF6" />
+            <pointLight position={[0, 0, 0.03]} distance={0.3} intensity={0.6} color="#E9D5FF" />
           </group>
 
           {/* Right Eye LED glyph structure */}
           <group ref={rEyeRef} position={[0.1, 0, 0]}>
             <mesh>
               <ringGeometry args={[0.044, 0.054, 32]} />
-              <meshStandardMaterial color="#8B5CF6" emissive="#8B5CF6" emissiveIntensity={4.5} />
+              <meshStandardMaterial color="#ffffff" emissive="#DDD6FE" emissiveIntensity={3.5} />
             </mesh>
             <mesh>
               <circleGeometry args={[0.034, 32]} />
-              <meshStandardMaterial color="#c4b5fd" emissive="#8B5CF6" emissiveIntensity={6.0} />
+              <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={5.0} />
             </mesh>
             <mesh position={[0.01, 0.01, 0.002]}>
               <circleGeometry args={[0.008, 16]} />
               <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={2.5} />
             </mesh>
-            <pointLight position={[0, 0, 0.03]} distance={0.3} intensity={0.6} color="#8B5CF6" />
+            <pointLight position={[0, 0, 0.03]} distance={0.3} intensity={0.6} color="#E9D5FF" />
           </group>
         </group>
 
