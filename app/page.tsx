@@ -254,7 +254,7 @@ export default async function Home() {
 
             <div className="hero-right">
               <div className="portrait-card">
-                <img src="/assets/sumit-hero.png" alt="Sumit Adak Portrait" />
+                <img src={`/assets/sumit-hero.png?v=${ASSET_VERSION}`} alt="Sumit Adak Portrait" />
                 <span className="portrait-badge">sumit<span className="amber">.</span> — based in india</span>
               </div>
             </div>
