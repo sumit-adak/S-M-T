@@ -508,7 +508,7 @@ function SceneController({ scrollProgress, mouse }: SceneProps) {
       <pointLight position={[0, 0, -100]} intensity={2.0} color="#f472b6" />
 
       {/* Atmospheric Fog: hides loading boundaries and matches space theme */}
-      <fog attach="fog" args={['#050816', 4, 32]} />
+      <fog attach="fog" args={['#000000', 4, 32]} />
     </>
   );
 }
@@ -638,7 +638,7 @@ export default function Journey() {
         {/* React Three Fiber Canvas */}
         <div className="journey-canvas-container">
           <Canvas camera={{ fov: 60 }}>
-            <color attach="background" args={['#050816']} />
+            <color attach="background" args={['#000000']} />
             
             {/* 3D Scene components */}
             <SceneController scrollProgress={scrollProgress} mouse={mouse} />

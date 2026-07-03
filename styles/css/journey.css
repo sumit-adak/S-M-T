@@ -3,7 +3,7 @@
 .journey-section {
   position: relative;
   height: 500vh; /* Scroll track length */
-  background-color: #050816;
+  background-color: #000000;
   overflow: visible;
   z-index: 5;
 }
@@ -44,13 +44,13 @@
 .hero {
   position: relative !important;
   z-index: 10 !important;
-  background-color: #050816 !important;
+  background-color: #000000 !important;
 }
 
 #portfolio {
   position: relative !important;
   z-index: 10 !important;
-  background-color: #050816 !important;
+  background-color: #000000 !important;
 }
 
 /* Base phase text styles */

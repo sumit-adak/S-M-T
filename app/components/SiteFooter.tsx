@@ -6,7 +6,7 @@ export default function SiteFooter({ base = '/' }: { base?: string }) {
       <div className="footer-top">
         <a className="brand" href={root}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 44" width="160" height="44">
-            <text x="0" y="32" fontFamily="'Clash Display', 'Arial Black', sans-serif" fontSize="28" fontWeight="700" fill="#050816" letterSpacing="-0.02em">SMT<tspan fill="#7C3AED">.</tspan></text>
+            <text x="0" y="32" fontFamily="'Clash Display', 'Arial Black', sans-serif" fontSize="28" fontWeight="700" fill="#000000" letterSpacing="-0.02em">SMT<tspan fill="#7C3AED">.</tspan></text>
           </svg>
         </a>
         <nav>
