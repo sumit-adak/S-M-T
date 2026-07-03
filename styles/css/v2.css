@@ -641,7 +641,7 @@ body.is-ready .scroll-wheel {
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
-    background: var(--ink);
+    background: var(--paper);
     transform: rotate(2deg);
     box-shadow: 24px 24px 0 -6px var(--amber);
     will-change: transform;
