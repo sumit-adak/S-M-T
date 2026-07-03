@@ -643,7 +643,6 @@ body.is-ready .scroll-wheel {
     overflow: hidden;
     background: var(--paper);
     transform: rotate(2deg);
-    box-shadow: 24px 24px 0 -6px var(--amber);
     will-change: transform;
     /* keep the portrait within the viewport on desktop so the hero fits 100vh */
     max-height: calc(100svh - 150px);
@@ -1699,7 +1698,6 @@ body.is-ready .scroll-wheel {
         max-width: 480px;
         max-height: none;
         margin: 0 auto;
-        box-shadow: 14px 14px 0 -4px var(--amber);
     }
 
     .site-header {
