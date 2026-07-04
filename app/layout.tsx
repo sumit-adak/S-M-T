@@ -61,7 +61,7 @@ export default function RootLayout({
           />
         </noscript>
       </head>
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className="is-loading">
         {children}
       </body>
     </html>
