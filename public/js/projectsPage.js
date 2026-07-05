@@ -9,14 +9,31 @@ gsap.registerPlugin(ScrollTrigger);
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isFinePointer = window.matchMedia('(pointer: fine)').matches;
 
+let projectsTl;
+
+function initProjectsAnimation() {
+    if (prefersReducedMotion) return;
+    projectsTl = gsap.timeline({ paused: true, defaults: { ease: 'power4.out' } });
+    projectsTl.from('.site-header', { yPercent: -120, duration: 0.6 })
+        .from('.garage-title .word', { yPercent: 120, duration: 0.8, stagger: 0.07 }, 0.05)
+        .from('.garage-sub, .filter-bar', { y: 24, autoAlpha: 0, duration: 0.5, stagger: 0.08 }, 0.3);
+}
+
 /* page entrance plays when the shared loader lifts the curtain */
 document.addEventListener('page:reveal', () => {
     if (prefersReducedMotion) return;
-    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-    tl.from('.site-header', { yPercent: -120, duration: 0.6 })
-        .from('.garage-title .word', { yPercent: 120, duration: 0.8, stagger: 0.07 }, 0.05)
-        .from('.garage-sub, .filter-bar', { y: 24, autoAlpha: 0, duration: 0.5, stagger: 0.08 }, 0.3);
+    if (!projectsTl) {
+        initProjectsAnimation();
+    }
+    if (projectsTl) projectsTl.play();
 });
+
+// Run initialization immediately on load (so styles are immediately applied)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectsAnimation);
+} else {
+    initProjectsAnimation();
+}
 
 /* ------------------------------------------------------------
    custom cursor (same as home)

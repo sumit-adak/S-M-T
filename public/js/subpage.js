@@ -11,14 +11,31 @@
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-    /* entrance when the loader lifts */
-    document.addEventListener('page:reveal', () => {
+    let subpageTl;
+
+    function initSubpageAnimation() {
         if (prefersReducedMotion) return;
         const targets = document.querySelectorAll('.site-header, .sub-hero, .timeline-title');
         if (targets.length) {
-            gsap.from(targets, { y: 28, autoAlpha: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out' });
+            subpageTl = gsap.timeline({ paused: true });
+            subpageTl.from(targets, { y: 28, autoAlpha: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out' });
         }
+    }
+
+    /* entrance when the loader lifts */
+    document.addEventListener('page:reveal', () => {
+        if (prefersReducedMotion) return;
+        if (!subpageTl) {
+            initSubpageAnimation();
+        }
+        if (subpageTl) subpageTl.play();
     });
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSubpageAnimation);
+    } else {
+        initSubpageAnimation();
+    }
 
     /* custom cursor */
     if (isFinePointer && !prefersReducedMotion) {

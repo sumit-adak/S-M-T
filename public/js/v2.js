@@ -9,10 +9,14 @@ gsap.registerPlugin(ScrollTrigger);
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-function heroIntro() {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+let heroTl;
 
-    tl.from('.site-header', { yPercent: -120, duration: 0.7 })
+function initHeroAnimation() {
+    if (prefersReducedMotion) return;
+
+    heroTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+
+    heroTl.from('.site-header', { yPercent: -120, duration: 0.7 })
         .from('.hero-title .word', {
             yPercent: 120,
             duration: 0.9,
@@ -35,15 +39,25 @@ function heroIntro() {
     if (swoosh) {
         const len = swoosh.getTotalLength();
         gsap.set(swoosh, { strokeDasharray: len, strokeDashoffset: len });
-        tl.to(swoosh, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' }, 0.7);
+        heroTl.to(swoosh, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' }, 0.7);
     }
-    return tl;
 }
 
 /* hero entrance plays when the shared loader lifts the curtain */
 document.addEventListener('page:reveal', () => {
-    if (!prefersReducedMotion) heroIntro();
+    if (prefersReducedMotion) return;
+    if (!heroTl) {
+        initHeroAnimation();
+    }
+    if (heroTl) heroTl.play();
 });
+
+// Run initialization immediately on load (so styles are immediately applied)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroAnimation);
+} else {
+    initHeroAnimation();
+}
 
 /* ------------------------------------------------------------
    CUSTOM CURSOR

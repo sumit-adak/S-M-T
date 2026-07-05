@@ -189,51 +189,48 @@ function useAssetLoader(isFullMode: boolean) {
   return { isLoaded };
 }
 
-// Odometer single digit column
-function Digit({ value }: { value: string }) {
-  return (
-    <span className="digit-container">
-      {/* Invisible spacer to reserve width and height */}
-      <span className="digit-spacer" aria-hidden="true">
-        {value || '0'}
-      </span>
-      <AnimatePresence mode="popLayout" initial={false}>
-        {value && (
-          <motion.span
-            key={value}
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: '0%', opacity: 1 }}
-            exit={{ y: '-100%', opacity: 0 }}
-            transition={{
-              type: 'spring',
-              stiffness: 180,
-              damping: 22,
-              mass: 0.7,
-            }}
-            className="digit-value"
-          >
-            {value}
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </span>
-  );
-}
+// Helper to calculate delay starting from center outwards (middle strips first)
+const numStrips = 10;
+const getStripDelay = (index: number) => {
+  const center = (numStrips - 1) / 2; // 4.5
+  const distanceFromCenter = Math.abs(index - center);
+  return (distanceFromCenter - 0.5) * 0.08;
+};
 
 export default function Loader() {
   const [isFullMode, setIsFullMode] = useState(false);
   const { isLoaded } = useAssetLoader(isFullMode);
   const [displayProgress, setDisplayProgress] = useState(0);
   const [phase, setPhase] = useState<'loading' | 'fade_out_pct' | 'brand_reveal' | 'hold' | 'split' | 'ended'>('loading');
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  // Detect mode on mount
+  // Detect mode on mount and session loaded check
   useEffect(() => {
     const isFull = typeof window !== 'undefined' && document.body.dataset.loader === 'full';
     setIsFullMode(isFull);
+
+    if (typeof window !== 'undefined') {
+      const hasLoaded = sessionStorage.getItem('hasLoadedBefore');
+      
+      // Subpages do not need full asset load sequence
+      if (!isFull) {
+        setIsFirstLoad(false);
+        setPhase('split');
+        document.body.classList.remove('is-loading');
+        document.body.classList.add('is-ready');
+      } else if (hasLoaded) {
+        setIsFirstLoad(false);
+        setPhase('split');
+        document.body.classList.remove('is-loading');
+        document.body.classList.add('is-ready');
+      }
+    }
   }, []);
 
   // Smooth displayed progress logic
   useEffect(() => {
+    if (!isFirstLoad) return;
+
     let currentVal = 0;
     const startTime = Date.now();
     const MIN_DURATION = isFullMode ? 2200 : 700; // 2.2s for home, 0.7s for subpages
@@ -268,10 +265,12 @@ export default function Loader() {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [isLoaded, isFullMode]);
+  }, [isLoaded, isFullMode, isFirstLoad]);
 
   // Phase transitions sequencing
   useEffect(() => {
+    if (!isFirstLoad) return;
+
     if (displayProgress === 100 && phase === 'loading') {
       if (isFullMode) {
         // Pause at 100% for 350ms
@@ -280,16 +279,17 @@ export default function Loader() {
         }, 350);
         return () => clearTimeout(t1);
       } else {
-        // Subpage: skip reveal and go directly to split transition
+        // Subpage fallback: skip reveal and go directly to split transition
         setPhase('split');
         document.body.classList.remove('is-loading');
         document.body.classList.add('is-ready');
-        document.dispatchEvent(new CustomEvent('page:reveal'));
       }
     }
-  }, [displayProgress, phase, isFullMode]);
+  }, [displayProgress, phase, isFullMode, isFirstLoad]);
 
   useEffect(() => {
+    if (!isFirstLoad && phase !== 'split') return;
+
     if (phase === 'fade_out_pct') {
       // Fade out percentage takes 300ms
       const t2 = setTimeout(() => {
@@ -313,51 +313,74 @@ export default function Loader() {
         // Unlock page scrolling and make it visible underneath
         document.body.classList.remove('is-loading');
         document.body.classList.add('is-ready');
-        document.dispatchEvent(new CustomEvent('page:reveal'));
       }, 600);
       return () => clearTimeout(t4);
     }
 
     if (phase === 'split') {
-      // Split panels duration is 1400ms
+      const duration = isFirstLoad ? (isFullMode ? 2500 : 1600) : (isFullMode ? 1200 : 1600);
+      
+      if (isFirstLoad && typeof window !== 'undefined') {
+        sessionStorage.setItem('hasLoadedBefore', 'true');
+      }
+
       const t5 = setTimeout(() => {
         setPhase('ended');
-      }, 1400);
+        // Dispatch reveal event when the split transition is completely finished
+        document.dispatchEvent(new CustomEvent('page:reveal'));
+      }, duration);
+      
       return () => clearTimeout(t5);
     }
-  }, [phase]);
+  }, [phase, isFirstLoad, isFullMode]);
 
   if (phase === 'ended') return null;
 
-  // Format odometer digits
-  const hundredStr = displayProgress >= 100 ? '1' : '';
-  const tenStr = displayProgress >= 10 ? Math.floor((displayProgress % 100) / 10).toString() : '0';
-  const unitStr = (displayProgress % 10).toString();
-
+  const showStrips = !isFullMode;
   const letters = 'SUMIT'.split('');
 
   const letterVariants = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 0, y: 15 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
       transition: {
         type: 'spring' as const,
-        stiffness: 110,
-        damping: 15,
-        mass: 0.9,
-        delay: i * 0.12,
+        stiffness: 90,
+        damping: 18,
+        mass: 1.0,
+        delay: i * 0.14,
       },
     }),
   };
 
   const splitTransition = {
     ease: [0.16, 1, 0.3, 1] as const, // premium custom cubic-bezier (easeOutQuart-like)
-    duration: 1.4,
+    duration: isFirstLoad ? (isFullMode ? 2.5 : 1.2) : 1.2,
+  };
+
+  const stripVariants = {
+    initial: { y: 0 },
+    animate: (index: number) => ({
+      y: index % 2 === 0 ? '-100%' : '100%',
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1] as const,
+        delay: getStripDelay(index),
+      },
+    }),
   };
 
   return (
     <div className="loader">
+      {/* Premium aesthetic textures */}
+      {phase === 'loading' && (
+        <>
+          <div className="loader-grid" />
+          <div className="loader-glow" />
+        </>
+      )}
+
       {/* Phase 1: Percentage Counter */}
       <AnimatePresence>
         {phase === 'loading' && (
@@ -368,71 +391,84 @@ export default function Loader() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <div className="odometer">
-              <Digit value={hundredStr} />
-              <Digit value={tenStr} />
-              <Digit value={unitStr} />
+              <span className="odometer-number">{displayProgress}</span>
               <span className="percent-symbol">%</span>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Phase 2, 3, 4: Split panels and brand reveal */}
-      <div className="split-panels">
-        {/* Top Panel (Clipped to top 50%) */}
-        <motion.div
-          className="panel top-panel"
-          initial={{ y: 0 }}
-          animate={phase === 'split' ? { y: '-100%' } : { y: 0 }}
-          transition={splitTransition}
-        >
-          <div className="panel-content">
-            {phase !== 'loading' && phase !== 'fade_out_pct' && (
-              <div className="brand-name">
-                {letters.map((char, i) => (
-                  <motion.span
-                    key={i}
-                    custom={i}
-                    variants={letterVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="brand-letter"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </div>
-            )}
-          </div>
-        </motion.div>
+      {/* Phase 2, 3, 4: Split panels or strip transition */}
+      {showStrips ? (
+        <div className="strip-transition-container">
+          {Array.from({ length: numStrips }).map((_, index) => (
+            <motion.div
+              key={index}
+              className="strip"
+              custom={index}
+              variants={stripVariants}
+              initial="initial"
+              animate={phase === 'split' ? 'animate' : 'initial'}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="split-panels">
+          {/* Top Panel (Clipped to top 50%) */}
+          <motion.div
+            className="panel top-panel"
+            initial={{ y: 0 }}
+            animate={phase === 'split' ? { y: '-100%' } : { y: 0 }}
+            transition={splitTransition}
+          >
+            <div className="panel-content">
+              {phase !== 'loading' && phase !== 'fade_out_pct' && (
+                <div className="brand-name">
+                  {letters.map((char, i) => (
+                    <motion.span
+                      key={i}
+                      custom={i}
+                      variants={letterVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="brand-letter"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
 
-        {/* Bottom Panel (Clipped to bottom 50%) */}
-        <motion.div
-          className="panel bottom-panel"
-          initial={{ y: 0 }}
-          animate={phase === 'split' ? { y: '100%' } : { y: 0 }}
-          transition={splitTransition}
-        >
-          <div className="panel-content">
-            {phase !== 'loading' && phase !== 'fade_out_pct' && (
-              <div className="brand-name">
-                {letters.map((char, i) => (
-                  <motion.span
-                    key={i}
-                    custom={i}
-                    variants={letterVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="brand-letter"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </div>
-            )}
-          </div>
-        </motion.div>
-      </div>
+          {/* Bottom Panel (Clipped to bottom 50%) */}
+          <motion.div
+            className="panel bottom-panel"
+            initial={{ y: 0 }}
+            animate={phase === 'split' ? { y: '100%' } : { y: 0 }}
+            transition={splitTransition}
+          >
+            <div className="panel-content">
+              {phase !== 'loading' && phase !== 'fade_out_pct' && (
+                <div className="brand-name">
+                  {letters.map((char, i) => (
+                    <motion.span
+                      key={i}
+                      custom={i}
+                      variants={letterVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="brand-letter"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
