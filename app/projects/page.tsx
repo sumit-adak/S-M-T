@@ -31,15 +31,15 @@ type Project = {
 };
 
 const FALLBACK: Project[] = [
-  { title: 'Interview-AI', cat: 'development', cat_label: 'A.I. Tool — Career Prep', img: '/assets/projects/1.png', desc: 'An <strong>intelligent career preparation platform</strong> designed to help students and job seekers. The system analyzes skills and experience to generate personalized interview questions, roadmaps, and ATS-friendly resumes.', role: 'Full-stack Developer', stack: 'Next.js · TypeScript · OpenAI · Tailwind · PostgreSQL', year: '2026 — dev', action: 'view source', url: 'https://github.com/sumit-adak' },
-  { title: 'WhiteBoard', cat: 'development', cat_label: 'Collaboration — Infinite Canvas', img: '/assets/projects/12.png', desc: 'A modern <strong>collaborative whiteboard platform</strong> built for brainstorming, teaching, and real-time team collaboration. Users sketch ideas and work together on an infinite canvas with live sync.', role: 'Designer & Developer', stack: 'Next.js · TypeScript · Tailwind · Liveblocks · Canvas API', year: '2025 — live', action: 'visit live site', url: 'https://white-board-umber.vercel.app/' },
-  { title: 'AI Code Reviewer', cat: 'development', cat_label: 'A.I. Tool — Code Review', img: '/assets/projects/2.png', desc: 'An <strong>AI-powered code review assistant</strong> that helps developers improve quality, security, and performance. Analyzes source code and provides senior-developer level optimization recommendations.', role: 'Creator & Developer', stack: 'React · Next.js · TypeScript · OpenAI API · Node.js', year: '2025 — dev', action: 'view source', url: 'https://github.com/sumit-adak' },
-  { title: 'Edu Hub', cat: 'development', cat_label: 'Education — Learning Assistant', img: '/assets/projects/project-2.png', desc: 'A personal <strong>AI learning assistant</strong> designed for students. Helps manage schedules, classes, assignments, and study progress while providing smart educational assistance.', role: 'Web & App Developer', stack: 'Next.js · TypeScript · Node.js · PostgreSQL · OpenAI', year: '2025 — dev', action: 'view source', url: 'https://github.com/sumit-adak' },
-  { title: 'Banking Ledger System', cat: 'development', cat_label: 'Fintech — Backend System', img: '/assets/projects/project-3.png', desc: 'A <strong>scalable enterprise-grade backend system</strong> designed for banking transaction management. Focuses on consistency, auditability, security, and high-performance transaction processing.', role: 'Backend Developer', stack: 'Node.js · Express.js · PostgreSQL · Prisma · JWT', year: '2026 — dev', action: 'view source', url: 'https://github.com/sumit-adak' },
-  { title: 'Building AI Apps with Next.js', cat: 'video', cat_label: 'Education — Video Tutorial', img: '/assets/projects/project-4.png', desc: 'A comprehensive <strong>video tutorial</strong> explaining how to integrate OpenAI API in Next.js applications, covering API routes, streaming responses, and UI updates.', role: 'Creator & Speaker', stack: 'Next.js · OpenAI · YouTube', year: '2025', action: 'watch the tutorial', url: 'https://github.com/sumit-adak' },
-  { title: 'Whiteboard System Architecture', cat: 'video', cat_label: 'Vlog — System Architecture', img: '/assets/projects/1.png', desc: 'A detailed <strong>developer vlog</strong> discussing the architecture and real-time syncing principles used in the collaborative whiteboard system.', role: 'Creator & Presenter', stack: 'System Design · Liveblocks', year: '2025', action: 'watch the devlog', url: 'https://github.com/sumit-adak' },
-  { title: 'Portfolio Website Design', cat: 'design', cat_label: 'Portfolio — UI/UX Design', img: '/assets/projects/2.png', desc: 'A clean, modern <strong>UI/UX portfolio design concept</strong> featuring dark mode, glassmorphism, and smooth micro-animations. Designed for high performance and optimal readability.', role: 'UI/UX Designer', stack: 'Figma · CSS', year: '2025', action: 'view the design', image: '/assets/projects/2.png' },
-  { title: 'Product Landing Page', cat: 'design', cat_label: 'Marketing — Landing Page', img: '/assets/projects/12.png', desc: 'A conversion-oriented <strong>landing page design</strong> for modern digital products, featuring strong typographic hierarchy, high-contrast layouts, and sleek animations.', role: 'UI/UX Designer', stack: 'Figma · Tailwind', year: '2024', action: 'view the design', image: '/assets/projects/12.png' },
+  { title: 'Interview-AI', cat: 'development', cat_label: 'A.I. Tool — Career Prep', img: '/assets/projects/1.webp', desc: 'An <strong>intelligent career preparation platform</strong> designed to help students and job seekers. The system analyzes skills and experience to generate personalized interview questions, roadmaps, and ATS-friendly resumes.', role: 'Full-stack Developer', stack: 'Next.js · TypeScript · OpenAI · Tailwind · PostgreSQL', year: '2026 — dev', action: 'view case study', url: '/projects/interview-ai' },
+  { title: 'WhiteBoard', cat: 'development', cat_label: 'Collaboration — Infinite Canvas', img: '/assets/projects/12.webp', desc: 'A modern <strong>collaborative whiteboard platform</strong> built for brainstorming, teaching, and real-time team collaboration. Users sketch ideas and work together on an infinite canvas with live sync.', role: 'Designer & Developer', stack: 'Next.js · TypeScript · Tailwind · Liveblocks · Canvas API', year: '2025 — live', action: 'view case study', url: '/projects/whiteboard' },
+  { title: 'AI Code Reviewer', cat: 'development', cat_label: 'A.I. Tool — Code Review', img: '/assets/projects/2.webp', desc: 'An <strong>AI-powered code review assistant</strong> that helps developers improve quality, security, and performance. Analyzes source code and provides senior-developer level optimization recommendations.', role: 'Creator & Developer', stack: 'React · Next.js · TypeScript · OpenAI API · Node.js', year: '2025 — dev', action: 'view source', url: 'https://github.com/sumit-adak' },
+  { title: 'Edu Hub', cat: 'development', cat_label: 'Education — Learning Assistant', img: '/assets/projects/project-2.webp', desc: 'A personal <strong>AI learning assistant</strong> designed for students. Helps manage schedules, classes, assignments, and study progress while providing smart educational assistance.', role: 'Web & App Developer', stack: 'Next.js · TypeScript · Node.js · PostgreSQL · OpenAI', year: '2025 — dev', action: 'view source', url: 'https://github.com/sumit-adak' },
+  { title: 'Banking Ledger System', cat: 'development', cat_label: 'Fintech — Backend System', img: '/assets/projects/project-3.webp', desc: 'A <strong>scalable enterprise-grade backend system</strong> designed for banking transaction management. Focuses on consistency, auditability, security, and high-performance transaction processing.', role: 'Backend Developer', stack: 'Node.js · Express.js · PostgreSQL · Prisma · JWT', year: '2026 — dev', action: 'view case study', url: '/projects/banking-ledger' },
+  { title: 'Building AI Apps with Next.js', cat: 'video', cat_label: 'Education — Video Tutorial', img: '/assets/projects/project-4.webp', desc: 'A comprehensive <strong>video tutorial</strong> explaining how to integrate OpenAI API in Next.js applications, covering API routes, streaming responses, and UI updates.', role: 'Creator & Speaker', stack: 'Next.js · OpenAI · YouTube', year: '2025', action: 'watch the tutorial', url: 'https://github.com/sumit-adak' },
+  { title: 'Whiteboard System Architecture', cat: 'video', cat_label: 'Vlog — System Architecture', img: '/assets/projects/1.webp', desc: 'A detailed <strong>developer vlog</strong> discussing the architecture and real-time syncing principles used in the collaborative whiteboard system.', role: 'Creator & Presenter', stack: 'System Design · Liveblocks', year: '2025', action: 'watch the devlog', url: 'https://github.com/sumit-adak' },
+  { title: 'Portfolio Website Design', cat: 'design', cat_label: 'Portfolio — UI/UX Design', img: '/assets/projects/2.webp', desc: 'A clean, modern <strong>UI/UX portfolio design concept</strong> featuring dark mode, glassmorphism, and smooth micro-animations. Designed for high performance and optimal readability.', role: 'UI/UX Designer', stack: 'Figma · CSS', year: '2025', action: 'view the design', image: '/assets/projects/2.webp' },
+  { title: 'Product Landing Page', cat: 'design', cat_label: 'Marketing — Landing Page', img: '/assets/projects/12.webp', desc: 'A conversion-oriented <strong>landing page design</strong> for modern digital products, featuring strong typographic hierarchy, high-contrast layouts, and sleek animations.', role: 'UI/UX Designer', stack: 'Figma · Tailwind', year: '2024', action: 'view the design', image: '/assets/projects/12.webp' },
 ];
 
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -50,42 +50,45 @@ export default async function Projects() {
   if (rows) {
     projects = rows.map((r) => {
       let mappedImg = r.img;
+      let url = r.url;
+      let action = r.action;
       const titleLower = r.title.toLowerCase();
       if (titleLower.includes('interview-ai') || titleLower.includes('bodo okhrang')) {
-        mappedImg = 'assets/projects/1.png';
+        mappedImg = 'assets/projects/1.webp';
+        url = '/projects/interview-ai';
+        action = 'view case study';
       } else if (titleLower.includes('whiteboard') || titleLower.includes('white board') || titleLower.includes('flopshop')) {
-        mappedImg = 'assets/projects/12.png';
+        mappedImg = 'assets/projects/12.webp';
+        url = '/projects/whiteboard';
+        action = 'view case study';
       } else if (titleLower.includes('code reviewer') || titleLower.includes('crewspace')) {
-        mappedImg = 'assets/projects/2.png';
+        mappedImg = 'assets/projects/2.webp';
       } else if (titleLower.includes('edu hub') || titleLower.includes('kokrajhar university')) {
-        mappedImg = 'assets/projects/project-2.png';
+        mappedImg = 'assets/projects/project-2.webp';
       } else if (titleLower.includes('banking ledger') || titleLower.includes('swrzee')) {
-        mappedImg = 'assets/projects/project-3.png';
+        mappedImg = 'assets/projects/project-3.webp';
+        url = '/projects/banking-ledger';
+        action = 'view case study';
       } else if (mappedImg) {
-        if (mappedImg.includes('1.webp')) mappedImg = 'assets/projects/1.png';
-        else if (mappedImg.includes('12.webp')) mappedImg = 'assets/projects/12.png';
-        else if (mappedImg.includes('11.webp')) mappedImg = 'assets/projects/2.png';
-        else if (mappedImg.includes('2.webp')) mappedImg = 'assets/projects/project-2.png';
-        else if (mappedImg.includes('3.webp')) mappedImg = 'assets/projects/project-3.png';
-        else mappedImg = mappedImg.replace(/\.webp$/, '.png');
+        mappedImg = mappedImg.replace(/\.png$/, '.webp').replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp');
       }
 
       let mappedImage = r.image;
       if (mappedImage) {
-        if (mappedImage.includes('8.webp')) mappedImage = 'assets/projects/2.png';
-        else if (mappedImage.includes('10.webp')) mappedImage = 'assets/projects/12.png';
-        else if (mappedImage.includes('1.webp')) mappedImage = 'assets/projects/1.png';
-        else if (mappedImage.includes('12.webp')) mappedImage = 'assets/projects/12.png';
-        else if (mappedImage.includes('11.webp')) mappedImage = 'assets/projects/2.png';
-        else if (mappedImage.includes('2.webp')) mappedImage = 'assets/projects/project-2.png';
-        else if (mappedImage.includes('3.webp')) mappedImage = 'assets/projects/project-3.png';
-        else mappedImage = mappedImage.replace(/\.webp$/, '.png');
+        mappedImage = mappedImage.replace(/\.png$/, '.webp').replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp');
+        if (mappedImage.includes('8.webp')) mappedImage = 'assets/projects/2.webp';
+        else if (mappedImage.includes('10.webp')) mappedImage = 'assets/projects/12.webp';
+        else if (mappedImage.includes('1.webp')) mappedImage = 'assets/projects/1.webp';
+        else if (mappedImage.includes('12.webp')) mappedImage = 'assets/projects/12.webp';
+        else if (mappedImage.includes('11.webp')) mappedImage = 'assets/projects/2.webp';
+        else if (mappedImage.includes('2.webp')) mappedImage = 'assets/projects/project-2.webp';
+        else if (mappedImage.includes('3.webp')) mappedImage = 'assets/projects/project-3.webp';
       }
 
       return {
         title: r.title, cat: r.cat, cat_label: r.cat_label, img: sbAsset(mappedImg),
-        desc: r.description, role: r.role, stack: r.stack, year: r.year, action: r.action,
-        url: r.url, video: r.video, image: mappedImage ? sbAsset(mappedImage) : null,
+        desc: r.description, role: r.role, stack: r.stack, year: r.year, action: action,
+        url: url, video: r.video, image: mappedImage ? sbAsset(mappedImage) : null,
       };
     });
   }

@@ -43,20 +43,66 @@ function initHeroAnimation() {
     }
 }
 
+function initInteractions() {
+    initHeroAnimation();
+    
+    if (!prefersReducedMotion) {
+        // 1. Magnetic Buttons
+        const magneticElements = document.querySelectorAll('.resume-btn, .btn-pill');
+        magneticElements.forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(el, {
+                    x: x * 0.35,
+                    y: y * 0.35,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: 'elastic.out(1, 0.3)'
+                });
+            });
+        });
+
+        // 2. Skill Marquee Stagger Entry
+        const marqueeLogos = document.querySelectorAll('.logoMarquee img');
+        if (marqueeLogos.length) {
+            gsap.from(marqueeLogos, {
+                scale: 0,
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                stagger: 0.03,
+                ease: 'back.out(1.7)',
+                scrollTrigger: {
+                    trigger: '.logoMarquee',
+                    start: 'top 90%',
+                }
+            });
+        }
+    }
+}
+
 /* hero entrance plays when the shared loader lifts the curtain */
 document.addEventListener('page:reveal', () => {
-    if (prefersReducedMotion) return;
     if (!heroTl) {
-        initHeroAnimation();
+        initInteractions();
     }
-    if (heroTl) heroTl.play();
+    if (heroTl && !prefersReducedMotion) heroTl.play();
 });
 
 // Run initialization immediately on load (so styles are immediately applied)
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroAnimation);
+    document.addEventListener('DOMContentLoaded', initInteractions);
 } else {
-    initHeroAnimation();
+    initInteractions();
 }
 
 /* ------------------------------------------------------------
@@ -80,6 +126,11 @@ if (isFinePointer && !prefersReducedMotion) {
         document.querySelectorAll('a, button, .menu-item, .card, .pill-btn').forEach((el) => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        document.querySelectorAll('.portfolio .card').forEach((el) => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-portfolio-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-portfolio-hover'));
         });
     }
 }
@@ -318,9 +369,29 @@ if (introVideoEl && reelFrameEl) {
    NAV ACTIVE STATE
    ------------------------------------------------------------ */
 const navSections = document.querySelectorAll('[data-nav-section]');
-const navLinks = document.querySelectorAll('.site-header nav a[href^="#"]');
+const navLinks = document.querySelectorAll('.site-header nav a');
 
-if (navSections.length && navLinks.length) {
+if (navSections.length && navLinks.length && !prefersReducedMotion) {
+    navSections.forEach((section) => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top 140px',
+            end: 'bottom 140px',
+            onToggle: (self) => {
+                if (self.isActive) {
+                    const id = section.getAttribute('id');
+                    navLinks.forEach((link) => {
+                        const href = link.getAttribute('href');
+                        if (href) {
+                            link.classList.toggle('active', href.endsWith('#' + id));
+                        }
+                    });
+                }
+            }
+        });
+    });
+} else if (navSections.length && navLinks.length) {
+    // Fallback for prefers-reduced-motion
     window.addEventListener('scroll', () => {
         let current = '';
         navSections.forEach((section) => {
@@ -329,7 +400,10 @@ if (navSections.length && navLinks.length) {
             }
         });
         navLinks.forEach((link) => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            const href = link.getAttribute('href');
+            if (href) {
+                link.classList.toggle('active', href.endsWith('#' + current));
+            }
         });
     }, { passive: true });
 }

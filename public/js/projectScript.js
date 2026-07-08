@@ -112,8 +112,11 @@
         item.addEventListener("click", () => {
             const url = item.getAttribute("data-url");
             if (url) {
-                window.open(url, "_blank"); // Opens in new tab
-                // Or use window.location.href = url; to open in same tab
+                if (url.startsWith('/')) {
+                    window.location.href = url; // Same tab for local routes
+                } else {
+                    window.open(url, "_blank"); // Opens in new tab
+                }
             }
         });
     });

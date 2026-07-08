@@ -76,13 +76,24 @@
         border-radius: 20px;
     }
 }
-/* Removed media queries that change grid columns to ensure consistent layout */
-@media (max-width: 600px) {
-    /* Portfolio Text */
-    .portfolio-title {
-        font-size: 17vw;
+@media (max-width: 900px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
-    /* Adjust padding for very small screens if needed, but keeping layout same */
+    .portfolio-title {
+        font-size: 15vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .portfolio-title {
+        font-size: 18vw;
+    }
     .portfolio {
         padding: 1em;
     }

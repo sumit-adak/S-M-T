@@ -8,6 +8,9 @@ import Loader from './components/Loader';
 import Chrome from './components/Chrome';
 import JourneyWrapper from './components/JourneyWrapper';
 import ContactCharacter from './components/ContactCharacter';
+import SiteHeader from './components/SiteHeader';
+import SiteFooter from './components/SiteFooter';
+import Image from 'next/image';
 
 // Home re-checks Supabase every 120s (mirrors the PHP disk-cache TTL).
 export const revalidate = 120;
@@ -84,63 +87,65 @@ export default async function Home() {
   let featured = await sbFetch<Featured>('featured_projects', 'select=*&visible=eq.true&order=sort');
   if (!featured) {
     featured = [
-      { info: 'A.I. Tool', name: 'Interview-AI', tag: 'Web Development', url: 'https://github.com/sumit-adak', video: null, image: null, hover_src: 'assets/projects/1.png' },
-      { info: 'Collaborative Canvas', name: 'WhiteBoard', tag: 'Realtime Web App', url: 'https://white-board-umber.vercel.app/', video: null, image: null, hover_src: 'assets/projects/12.png' },
-      { info: 'A.I. Tool', name: 'AI Code Reviewer', tag: 'Web Development', url: 'https://github.com/sumit-adak', video: null, image: null, hover_src: 'assets/projects/2.png' },
-      { info: 'Education', name: 'Edu Hub', tag: 'Web & App Development', url: 'https://github.com/sumit-adak', video: null, image: null, hover_src: 'assets/projects/project-2.png' },
-      { info: 'Fintech Ledger', name: 'Banking Ledger System', tag: 'Backend System', url: 'https://github.com/sumit-adak', video: null, image: null, hover_src: 'assets/projects/project-3.png' },
+      { info: 'A.I. Tool', name: 'Interview-AI', tag: 'Web Development', url: '/projects/interview-ai', video: null, image: null, hover_src: 'assets/projects/1.webp' },
+      { info: 'Collaborative Canvas', name: 'WhiteBoard', tag: 'Realtime Web App', url: '/projects/whiteboard', video: null, image: null, hover_src: 'assets/projects/12.webp' },
+      { info: 'A.I. Tool', name: 'AI Code Reviewer', tag: 'Web Development', url: 'https://github.com/sumit-adak', video: null, image: null, hover_src: 'assets/projects/2.webp' },
+      { info: 'Education', name: 'Edu Hub', tag: 'Web & App Development', url: 'https://github.com/sumit-adak', video: null, image: null, hover_src: 'assets/projects/project-2.webp' },
+      { info: 'Fintech Ledger', name: 'Banking Ledger System', tag: 'Backend System', url: '/projects/banking-ledger', video: null, image: null, hover_src: 'assets/projects/project-3.webp' },
     ];
   } else {
     featured = featured.map(fp => {
       let mapped = fp.hover_src;
+      let url = fp.url;
       const nameLower = fp.name.toLowerCase();
       if (nameLower.includes('interview-ai') || nameLower.includes('bodo okhrang')) {
-        mapped = 'assets/projects/1.png';
+        mapped = 'assets/projects/1.webp';
+        url = '/projects/interview-ai';
       } else if (nameLower.includes('whiteboard') || nameLower.includes('white board') || nameLower.includes('flopshop')) {
-        mapped = 'assets/projects/12.png';
+        mapped = 'assets/projects/12.webp';
+        url = '/projects/whiteboard';
       } else if (nameLower.includes('code reviewer') || nameLower.includes('crewspace')) {
-        mapped = 'assets/projects/2.png';
+        mapped = 'assets/projects/2.webp';
       } else if (nameLower.includes('edu hub') || nameLower.includes('kokrajhar university')) {
-        mapped = 'assets/projects/project-2.png';
+        mapped = 'assets/projects/project-2.webp';
       } else if (nameLower.includes('banking ledger') || nameLower.includes('swrzee')) {
-        mapped = 'assets/projects/project-3.png';
+        mapped = 'assets/projects/project-3.webp';
+        url = '/projects/banking-ledger';
       } else if (mapped) {
-        if (mapped.includes('1.webp')) mapped = 'assets/projects/1.png';
-        else if (mapped.includes('12.webp')) mapped = 'assets/projects/12.png';
-        else if (mapped.includes('11.webp')) mapped = 'assets/projects/2.png';
-        else if (mapped.includes('2.webp')) mapped = 'assets/projects/project-2.png';
-        else if (mapped.includes('3.webp')) mapped = 'assets/projects/project-3.png';
-        else mapped = mapped.replace(/\.webp$/, '.png');
+        mapped = mapped.replace(/\.png$/, '.webp').replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp');
       }
-      return { ...fp, hover_src: mapped };
+      return { ...fp, hover_src: mapped, url };
     });
   }
 
   let gallery = await sbFetch<Gallery>('gallery', 'select=*&visible=eq.true&order=sort');
   if (!gallery) {
     gallery = [
-      { image_url: 'assets/portfolio/sumit1galary.png', alt: 'Portfolio 1' },
-      { image_url: 'assets/portfolio/sumit2galary.png', alt: 'Portfolio 2' },
-      { image_url: 'assets/portfolio/sumit3galary.jpeg', alt: 'Portfolio 3' },
-      { image_url: 'assets/portfolio/sumit4galary.jpeg', alt: 'Portfolio 4' },
-      { image_url: 'assets/portfolio/sumi5galary.jpg', alt: 'Portfolio 5' },
-      { image_url: 'assets/portfolio/sumit6galary.jpeg', alt: 'Portfolio 6' },
+      { image_url: 'assets/portfolio/sumit1galary.webp', alt: 'Portfolio 1' },
+      { image_url: 'assets/portfolio/sumit2galary.webp', alt: 'Portfolio 2' },
+      { image_url: 'assets/portfolio/sumit3galary.webp', alt: 'Portfolio 3' },
+      { image_url: 'assets/portfolio/sumit4galary.webp', alt: 'Portfolio 4' },
+      { image_url: 'assets/portfolio/sumi5galary.webp', alt: 'Portfolio 5' },
+      { image_url: 'assets/portfolio/sumit6galary.webp', alt: 'Portfolio 6' },
     ];
   } else {
     gallery = gallery.map(g => {
       let mapped = g.image_url;
-      if (mapped.endsWith('portfolio/1.webp') || mapped === 'assets/portfolio/1.webp') {
-        mapped = 'assets/portfolio/sumit1galary.png';
-      } else if (mapped.endsWith('portfolio/2.webp') || mapped === 'assets/portfolio/2.webp') {
-        mapped = 'assets/portfolio/sumit2galary.png';
-      } else if (mapped.endsWith('portfolio/3.webp') || mapped === 'assets/portfolio/3.webp') {
-        mapped = 'assets/portfolio/sumit3galary.jpeg';
-      } else if (mapped.endsWith('portfolio/4.webp') || mapped === 'assets/portfolio/4.webp') {
-        mapped = 'assets/portfolio/sumit4galary.jpeg';
-      } else if (mapped.endsWith('portfolio/5.webp') || mapped === 'assets/portfolio/5.webp') {
-        mapped = 'assets/portfolio/sumi5galary.jpg';
-      } else if (mapped.endsWith('portfolio/6.webp') || mapped === 'assets/portfolio/6.webp') {
-        mapped = 'assets/portfolio/sumit6galary.jpeg';
+      if (mapped) {
+        mapped = mapped.replace(/\.png$/, '.webp').replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp');
+        if (mapped.endsWith('portfolio/1.webp') || mapped === 'assets/portfolio/1.webp') {
+          mapped = 'assets/portfolio/sumit1galary.webp';
+        } else if (mapped.endsWith('portfolio/2.webp') || mapped === 'assets/portfolio/2.webp') {
+          mapped = 'assets/portfolio/sumit2galary.webp';
+        } else if (mapped.endsWith('portfolio/3.webp') || mapped === 'assets/portfolio/3.webp') {
+          mapped = 'assets/portfolio/sumit3galary.webp';
+        } else if (mapped.endsWith('portfolio/4.webp') || mapped === 'assets/portfolio/4.webp') {
+          mapped = 'assets/portfolio/sumit4galary.webp';
+        } else if (mapped.endsWith('portfolio/5.webp') || mapped === 'assets/portfolio/5.webp') {
+          mapped = 'assets/portfolio/sumi5galary.webp';
+        } else if (mapped.endsWith('portfolio/6.webp') || mapped === 'assets/portfolio/6.webp') {
+          mapped = 'assets/portfolio/sumit6galary.webp';
+        }
       }
       return { ...g, image_url: mapped };
     });
@@ -173,27 +178,9 @@ export default async function Home() {
       <Chrome />
 
       <div className="page">
+        <SiteHeader active="home" base="/" />
         {/* ===================== HERO ===================== */}
         <section id="home" className="hero" data-nav-section>
-          <header className="site-header">
-            <a className="brand" href="/">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 44" width="160" height="44">
-                <text x="0" y="32" fontFamily="'Clash Display', 'Arial Black', sans-serif" fontSize="28" fontWeight="700" fill="#FFFFFF" letterSpacing="-0.02em">SMT<tspan fill="#7C3AED">.</tspan></text>
-              </svg>
-            </a>
-            <nav>
-              <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#intro">Intro</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/timeline">Timeline</a></li>
-                <li><a href="/blogs">Blogs</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#about">About</a></li>
-              </ul>
-            </nav>
-            <div className="header-flag"><img src="/assets/india.svg" alt="Made in India" /></div>
-          </header>
 
           <div className="hero-ghost" aria-hidden="true">sumit — sumit</div>
 
@@ -230,7 +217,7 @@ export default async function Home() {
               </div>
 
               <div className="cta-row">
-                <a href="/Sumit_Adak_Resume.pdf" target="_blank" download="Sumit_Adak_Resume.pdf" className="resume-btn" data-resume-link>
+                <a href={sbAsset(resumeUrl)} target="_blank" download="Sumit_Adak_Resume.pdf" className="resume-btn" data-resume-link>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 16L7 11H10V4H14V11H17L12 16ZM6 18V20H18V18H6Z" fill="currentColor" />
                   </svg>
@@ -254,7 +241,7 @@ export default async function Home() {
 
             <div className="hero-right">
               <div className="portrait-card">
-                <img src={`/assets/sumit-hero.png?v=${ASSET_VERSION}`} alt="Sumit Adak Portrait" />
+                <Image src="/assets/sumit-hero.webp" alt="Sumit Adak Portrait" width={480} height={518} priority />
                 <span className="portrait-badge">sumit<span className="amber">.</span> — based in india</span>
               </div>
             </div>
@@ -290,7 +277,13 @@ export default async function Home() {
             <div className="portfolio-grid">
               {gallery.map((g, gi) => (
                 <div className={'card' + (gi === gCount - 1 ? ' last-card' : '')} key={gi}>
-                  <img src={sbAsset(g.image_url)} alt={g.alt ?? 'Portfolio'} />
+                  <Image
+                    src={sbAsset(g.image_url)}
+                    alt={g.alt ?? 'Portfolio'}
+                    width={400}
+                    height={400}
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                  />
                 </div>
               ))}
             </div>
@@ -478,37 +471,7 @@ export default async function Home() {
         </section>
 
         {/* ===================== FOOTER ===================== */}
-        <footer className="site-footer">
-          <div className="footer-top">
-            <a className="brand" href="/">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 44" width="160" height="44">
-                <text x="0" y="32" fontFamily="'Clash Display', 'Arial Black', sans-serif" fontSize="28" fontWeight="700" fill="#000000" letterSpacing="-0.02em">SMT<tspan fill="#7C3AED">.</tspan></text>
-              </svg>
-            </a>
-            <nav>
-              <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#intro">Intro</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/timeline">Timeline</a></li>
-                <li><a href="/blogs">Blogs</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#about">About</a></li>
-              </ul>
-            </nav>
-          </div>
-
-          <div className="footer-giant">
-            <span className="row"><span className="ghost">fall back<span className="amber">?</span></span></span>
-            <span className="row"><span>redesign<span className="amber">..!</span></span></span>
-          </div>
-
-          <div className="footer-bottom">
-            <span>© 2026 sumit adak</span>
-            <span>engineered with precision — crafted with passion</span>
-            <span><a href={`mailto:${contactEmail}`}>{contactEmail}</a></span>
-          </div>
-        </footer>
+        <SiteFooter base="/" contactEmail={contactEmail} />
       </div>
 
       <div id="toast-container"></div>

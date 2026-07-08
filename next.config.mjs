@@ -4,8 +4,17 @@ const nextConfig = {
   // We reproduce the PHP site exactly; no eslint/type build gates while migrating.
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: false },
-  // Allow Supabase storage + R2 media as plain <img> (we keep markup identical, no next/image).
-  images: { unoptimized: true },
+  // Allow Supabase storage + R2 media to be optimized.
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'kwzjyslodgwraglsnnia.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+  },
   // Static chaicode microsites (cursor, mintlify, february) live in /public.
   // Their asset paths were absolutised, so we just serve index.html at the
   // clean URL (no trailing slash — avoids Next's slash-normalisation loop).

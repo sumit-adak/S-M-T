@@ -1,5 +1,5 @@
 // Port of partials/site_footer.php.
-export default function SiteFooter({ base = '/' }: { base?: string }) {
+export default function SiteFooter({ base = '/', contactEmail = 'sumitbackend1@gmail.com' }: { base?: string; contactEmail?: string }) {
   const root = base;
   return (
     <footer className="site-footer">
@@ -30,7 +30,7 @@ export default function SiteFooter({ base = '/' }: { base?: string }) {
       <div className="footer-bottom">
         <span>© 2026 sumit adak</span>
         <span>engineered with precision — crafted with passion</span>
-        <span><a href="mailto:sumitbackend1@gmail.com">sumitbackend1@gmail.com</a></span>
+        <span><a href={`mailto:${contactEmail}`}>{contactEmail}</a></span>
       </div>
     </footer>
   );

@@ -1,0 +1,123 @@
+/* caseStudy.css */
+.case-study-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8rem 2rem 6rem;
+}
+
+.case-study-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--amber, #f9b646);
+    text-decoration: none;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+    transition: transform 0.2s ease;
+}
+
+.case-study-back:hover {
+    transform: translateX(-4px);
+}
+
+.case-study-header {
+    margin-bottom: 4rem;
+}
+
+.case-study-kicker {
+    font-family: var(--font-mono, monospace);
+    color: var(--amber, #f9b646);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.case-study-title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+}
+
+.case-study-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 4rem;
+}
+
+.case-study-meta-item h4 {
+    font-family: var(--font-mono, monospace);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.case-study-meta-item p {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.case-study-hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 4rem;
+    overflow: hidden;
+}
+
+.case-study-hero-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.case-study-section {
+    margin-bottom: 4rem;
+}
+
+.case-study-section h2 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.case-study-section p {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 1.5rem;
+}
+
+.case-study-section strong {
+    color: #ffffff;
+}
+
+.case-study-section ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.case-study-section li {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+}

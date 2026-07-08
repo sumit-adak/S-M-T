@@ -67,5 +67,15 @@ export async function sbSetting<T = any>(
 export function sbAsset(path: string | null | undefined, base = '/'): string {
   if (!path) return '';
   if (/^https?:\/\//.test(path)) return path;
-  return base + path.replace(/^\/+/, '');
+  
+  let cleanPath = path.replace(/^\/+/, '');
+  // Map png/jpg/jpeg to webp for target folders we compressed (excluding SVGs)
+  if (
+    /^(assets\/portfolio|assets\/projects|assets\/skills|assets\/sumit-hero|assets\/sumit-contact)/i.test(cleanPath) &&
+    !cleanPath.endsWith('.svg')
+  ) {
+    cleanPath = cleanPath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+  }
+  
+  return base + cleanPath;
 }
