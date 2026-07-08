@@ -136,10 +136,12 @@
 }
 
 .phase-text h2 span.gradient {
-  background: linear-gradient(135deg, #7C3AED, #A855F7, #f472b6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #A855F7;
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
   display: inline-block;
+  text-shadow: none !important;
 }
 
 .phase-text h3 {
@@ -323,17 +325,17 @@
 
 .final-phase p.subtitle {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1.35rem;
-  color: #a855f7;
+  font-size: 1.75rem;
+  color: #f9b646;
   letter-spacing: 0.15em;
   margin-bottom: 2rem;
   text-transform: uppercase;
 }
 
 .final-phase p.desc {
-  font-size: 1.15rem;
-  color: #64748b;
-  max-width: 450px;
+  font-size: 1.4rem;
+  color: #e2e8f0;
+  max-width: 550px;
 }
 
 /* Indicators */

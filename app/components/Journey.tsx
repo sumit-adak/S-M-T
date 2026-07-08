@@ -10,6 +10,7 @@ import * as THREE from 'three';
 
 // 1. Neon Tunnel
 function Tunnel() {
+  const cylinderRef = useRef<THREE.Mesh>(null);
   const rings = useMemo(() => {
     const arr = [];
     // Space rings along Z axis from 0 to -120 every 6 units
@@ -24,6 +25,12 @@ function Tunnel() {
     return arr;
   }, []);
 
+  useFrame((state) => {
+    if (cylinderRef.current) {
+      cylinderRef.current.rotation.y = state.clock.getElapsedTime() * 0.03;
+    }
+  });
+
   return (
     <group>
       {/* Torus Rings */}
@@ -35,11 +42,74 @@ function Tunnel() {
       ))}
 
       {/* Outer Cylinder Wireframe Grid */}
-      <mesh position={[0, 0, -60]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh ref={cylinderRef} position={[0, 0, -60]} rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[3.25, 3.25, 126, 12, 30, true]} />
         <meshBasicMaterial color="#7C3AED" wireframe transparent opacity={0.12} />
       </mesh>
     </group>
+  );
+}
+
+// 1.5. Interactive Hyperspace Warp Lines
+function WarpDust() {
+  const lineSegmentsRef = useRef<THREE.LineSegments>(null);
+  const count = 100;
+
+  const [positions, colors] = useMemo(() => {
+    const pos = new Float32Array(count * 2 * 3);
+    const cols = new Float32Array(count * 2 * 3);
+    const colorPalette = [
+      new THREE.Color('#7C3AED'),
+      new THREE.Color('#8B5CF6'),
+      new THREE.Color('#A855F7'),
+      new THREE.Color('#f472b6'),
+    ];
+
+    for (let i = 0; i < count; i++) {
+      const radius = 1.8 + Math.random() * 4.5;
+      const angle = Math.random() * Math.PI * 2;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      const zStart = -Math.random() * 120;
+      const length = 2.0 + Math.random() * 6;
+      const zEnd = zStart + length;
+
+      const idx = i * 6;
+      pos[idx] = x; pos[idx+1] = y; pos[idx+2] = zStart;
+      pos[idx+3] = x; pos[idx+4] = y; pos[idx+5] = zEnd;
+
+      const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+      const cIdx = i * 6;
+      cols[cIdx] = randomColor.r * 0.9;
+      cols[cIdx+1] = randomColor.g * 0.9;
+      cols[cIdx+2] = randomColor.b * 0.9;
+      cols[cIdx+3] = randomColor.r * 0.1;
+      cols[cIdx+4] = randomColor.g * 0.1;
+      cols[cIdx+5] = randomColor.b * 0.1;
+    }
+    return [pos, cols];
+  }, []);
+
+  useFrame((state) => {
+    if (lineSegmentsRef.current) {
+      lineSegmentsRef.current.rotation.z = state.clock.getElapsedTime() * 0.02;
+    }
+  });
+
+  return (
+    <lineSegments ref={lineSegmentsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positions, 3]}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          args={[colors, 3]}
+        />
+      </bufferGeometry>
+      <lineBasicMaterial vertexColors linewidth={1.5} transparent opacity={0.45} depthWrite={false} />
+    </lineSegments>
   );
 }
 
@@ -472,6 +542,7 @@ type SceneProps = {
 
 function SceneController({ scrollProgress, mouse }: SceneProps) {
   const { camera } = useThree();
+  const lightRef = useRef<THREE.PointLight>(null);
 
   // Initialize camera far away in the tunnel
   useEffect(() => {
@@ -498,11 +569,22 @@ function SceneController({ scrollProgress, mouse }: SceneProps) {
 
     // 3. Make camera look slightly ahead, plus add mouse offset
     camera.lookAt(targetX * 0.5, targetY * 0.5, camera.position.z - 8);
+
+    // 4. Update cursor follower point light position
+    if (lightRef.current) {
+      lightRef.current.position.set(
+        camera.position.x + mouse.current.x * 2.2,
+        camera.position.y + mouse.current.y * 2.2,
+        camera.position.z - 3.5
+      );
+    }
   });
 
   return (
     <>
       <ambientLight intensity={0.4} />
+      {/* Interactive mouse-following cursor light */}
+      <pointLight ref={lightRef} intensity={3.5} distance={10} color="#7C3AED" />
       <pointLight position={[0, 0, -20]} intensity={1.5} color="#A855F7" />
       <pointLight position={[0, 0, -60]} intensity={1.5} color="#8B5CF6" />
       <pointLight position={[0, 0, -100]} intensity={2.0} color="#f472b6" />
@@ -643,6 +725,7 @@ export default function Journey() {
             {/* 3D Scene components */}
             <SceneController scrollProgress={scrollProgress} mouse={mouse} />
             <Tunnel />
+            <WarpDust />
             <Particles />
             <CuriosityCube />
             <ReactInterface />
@@ -716,7 +799,7 @@ export default function Journey() {
 
           {/* Phase 6: Final SMT Logo */}
           <div className={`phase-text final-phase phase-center ${activePhase === 'final' ? 'active' : ''}`}>
-            <h2>SMT<span className="gradient">.</span></h2>
+            <h2>SUMIT<span className="gradient">.</span></h2>
             <p className="subtitle">Still Building.</p>
             <p className="desc">The story is far from finished. Engineering with precision, crafting with passion.</p>
           </div>
