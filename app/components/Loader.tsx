@@ -326,6 +326,9 @@ export default function Loader() {
 
       const t5 = setTimeout(() => {
         setPhase('ended');
+        if (typeof window !== 'undefined') {
+          (window as any).pageRevealed = true;
+        }
         // Dispatch reveal event when the split transition is completely finished
         document.dispatchEvent(new CustomEvent('page:reveal'));
       }, duration);

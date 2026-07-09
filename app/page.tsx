@@ -181,6 +181,7 @@ export default async function Home() {
         <SiteHeader active="home" base="/" />
         {/* ===================== HERO ===================== */}
         <section id="home" className="hero" data-nav-section>
+          <div className="hero-grid-overlay" aria-hidden="true"></div>
 
           <div className="hero-ghost" aria-hidden="true">sumit — sumit</div>
 
@@ -188,15 +189,19 @@ export default async function Home() {
             <div className="hero-left">
               <p className="hero-eyebrow mono">{heroEyebrow}</p>
 
-              <h1 className="hero-title">
-                <span className="line"><span className="word">{heroT1}</span></span>
-                <span className="line">
-                  {heroT1.toLowerCase() !== 'sumit' && (
-                    <>
-                      <span className="word amp">&amp;</span>&nbsp;
-                    </>
-                  )}
-                  <span className="word">{heroT2}</span>
+              <h1 className="hero-title interactive-title" aria-label="SUMIT ADAK">
+                <span className="line first-name">
+                  <span className="char" data-char="S">S</span>
+                  <span className="char" data-char="U">U</span>
+                  <span className="char" data-char="M">M</span>
+                  <span className="char" id="char-I" data-char="I">I</span>
+                  <span className="char" data-char="T">T</span>
+                </span>
+                <span className="line last-name">
+                  <span className="char" data-char="A">A</span>
+                  <span className="char" data-char="D">D</span>
+                  <span className="char" data-char="A">A</span>
+                  <span className="char" data-char="K">K</span>
                 </span>
               </h1>
 
@@ -483,6 +488,7 @@ export default async function Home() {
           'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
           '/js/loader.js',
           '/js/v2.js',
+          '/js/hero-typography.js',
           '/js/projectScript.js',
           '/js/contactScript.js',
         ]}

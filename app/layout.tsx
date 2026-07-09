@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
-          href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600,700&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600,700&f[]=satoshi@900&display=swap"
           rel="stylesheet"
         />
         <link
@@ -56,7 +56,7 @@ export default function RootLayout({
           <style
             dangerouslySetInnerHTML={{
               __html:
-                '.page{opacity:1!important}.loader,.cursor-dot,.cursor-ring{display:none!important}body.is-loading{overflow:auto;height:auto}',
+                '.page{opacity:1!important}.char{opacity:1!important;filter:none!important}.loader,.cursor-dot,.cursor-ring{display:none!important}body.is-loading{overflow:auto;height:auto}',
             }}
           />
         </noscript>

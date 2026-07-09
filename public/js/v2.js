@@ -4,12 +4,22 @@
    (loader + transitions live in js/loader.js)
    ============================================================ */
 
-gsap.registerPlugin(ScrollTrigger);
+(function () {
+    let heroTl;
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+    function initV2() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+            setTimeout(initV2, 50);
+            return;
+        }
 
-let heroTl;
+        gsap.registerPlugin(ScrollTrigger);
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+        // Run interaction initializations immediately
+        initInteractions();
 
 function initHeroAnimation() {
     if (prefersReducedMotion) return;
@@ -91,18 +101,17 @@ function initInteractions() {
 }
 
 /* hero entrance plays when the shared loader lifts the curtain */
-document.addEventListener('page:reveal', () => {
+function runMainReveal() {
     if (!heroTl) {
         initInteractions();
     }
     if (heroTl && !prefersReducedMotion) heroTl.play();
-});
+}
 
-// Run initialization immediately on load (so styles are immediately applied)
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initInteractions);
+if (window.pageRevealed) {
+    runMainReveal();
 } else {
-    initInteractions();
+    document.addEventListener('page:reveal', runMainReveal);
 }
 
 /* ------------------------------------------------------------
@@ -407,3 +416,19 @@ if (navSections.length && navLinks.length && !prefersReducedMotion) {
         });
     }, { passive: true });
 }
+}
+
+    function startV2() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+            setTimeout(startV2, 50);
+            return;
+        }
+        initV2();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startV2);
+    } else {
+        startV2();
+    }
+})();
