@@ -391,6 +391,9 @@
 
     // Main page load entrance animation triggered by shared loader reveal or immediately if already revealed
     function runEntrance() {
+        const title = document.querySelector('.hero-title.interactive-title');
+        if (title) title.classList.add('revealed');
+
         if (prefersReducedMotion) {
             isInteractionActive = true;
             cacheRects();

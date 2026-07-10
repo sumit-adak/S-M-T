@@ -2068,6 +2068,11 @@ body.is-ready .scroll-wheel {
     filter: blur(18px);
 }
 
+.hero-title.revealed .char {
+    opacity: 1;
+    filter: none;
+}
+
 .char:hover {
     -webkit-text-fill-color: #ffffff !important;
     text-shadow: 
