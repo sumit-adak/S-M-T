@@ -53,36 +53,39 @@ export default async function Projects() {
       let url = r.url;
       let action = r.action;
       const titleLower = r.title.toLowerCase();
-      if (titleLower.includes('interview-ai') || titleLower.includes('bodo okhrang')) {
-        mappedImg = 'assets/projects/1.webp';
-        url = '/projects/interview-ai';
-        action = 'view case study';
-      } else if (titleLower.includes('whiteboard') || titleLower.includes('white board') || titleLower.includes('flopshop')) {
-        mappedImg = 'assets/projects/12.webp';
-        url = '/projects/whiteboard';
-        action = 'view case study';
-      } else if (titleLower.includes('code reviewer') || titleLower.includes('crewspace')) {
-        mappedImg = 'assets/projects/2.webp';
-      } else if (titleLower.includes('edu hub') || titleLower.includes('kokrajhar university')) {
-        mappedImg = 'assets/projects/project-2.webp';
-      } else if (titleLower.includes('banking ledger') || titleLower.includes('swrzee')) {
-        mappedImg = 'assets/projects/project-3.webp';
-        url = '/projects/banking-ledger';
-        action = 'view case study';
-      } else if (mappedImg) {
+      if (!mappedImg) {
+        if (titleLower.includes('interview-ai') || titleLower.includes('bodo okhrang')) {
+          mappedImg = 'assets/projects/1.webp';
+          url = url || '/projects/interview-ai';
+          action = action || 'view case study';
+        } else if (titleLower.includes('whiteboard') || titleLower.includes('white board') || titleLower.includes('flopshop')) {
+          mappedImg = 'assets/projects/12.webp';
+          url = url || '/projects/whiteboard';
+          action = action || 'view case study';
+        } else if (titleLower.includes('code reviewer') || titleLower.includes('crewspace')) {
+          mappedImg = 'assets/projects/2.webp';
+        } else if (titleLower.includes('edu hub') || titleLower.includes('kokrajhar university')) {
+          mappedImg = 'assets/projects/project-2.webp';
+        } else if (titleLower.includes('banking ledger') || titleLower.includes('swrzee')) {
+          mappedImg = 'assets/projects/project-3.webp';
+          url = url || '/projects/banking-ledger';
+          action = action || 'view case study';
+        }
+      } else {
         mappedImg = mappedImg.replace(/\.png$/, '.webp').replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp');
       }
 
       let mappedImage = r.image;
       if (mappedImage) {
         mappedImage = mappedImage.replace(/\.png$/, '.webp').replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp');
-        if (mappedImage.includes('8.webp')) mappedImage = 'assets/projects/2.webp';
-        else if (mappedImage.includes('10.webp')) mappedImage = 'assets/projects/12.webp';
-        else if (mappedImage.includes('1.webp')) mappedImage = 'assets/projects/1.webp';
-        else if (mappedImage.includes('12.webp')) mappedImage = 'assets/projects/12.webp';
-        else if (mappedImage.includes('11.webp')) mappedImage = 'assets/projects/2.webp';
-        else if (mappedImage.includes('2.webp')) mappedImage = 'assets/projects/project-2.webp';
-        else if (mappedImage.includes('3.webp')) mappedImage = 'assets/projects/project-3.webp';
+        const filename = mappedImage.split('/').pop();
+        if (filename === '8.webp') mappedImage = 'assets/projects/2.webp';
+        else if (filename === '10.webp') mappedImage = 'assets/projects/12.webp';
+        else if (filename === '1.webp') mappedImage = 'assets/projects/1.webp';
+        else if (filename === '12.webp') mappedImage = 'assets/projects/12.webp';
+        else if (filename === '11.webp') mappedImage = 'assets/projects/2.webp';
+        else if (filename === '2.webp') mappedImage = 'assets/projects/project-2.webp';
+        else if (filename === '3.webp') mappedImage = 'assets/projects/project-3.webp';
       }
 
       return {

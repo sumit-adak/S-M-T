@@ -98,20 +98,22 @@ export default async function Home() {
       let mapped = fp.hover_src;
       let url = fp.url;
       const nameLower = fp.name.toLowerCase();
-      if (nameLower.includes('interview-ai') || nameLower.includes('bodo okhrang')) {
-        mapped = 'assets/projects/1.webp';
-        url = '/projects/interview-ai';
-      } else if (nameLower.includes('whiteboard') || nameLower.includes('white board') || nameLower.includes('flopshop')) {
-        mapped = 'assets/projects/12.webp';
-        url = '/projects/whiteboard';
-      } else if (nameLower.includes('code reviewer') || nameLower.includes('crewspace')) {
-        mapped = 'assets/projects/2.webp';
-      } else if (nameLower.includes('edu hub') || nameLower.includes('kokrajhar university')) {
-        mapped = 'assets/projects/project-2.webp';
-      } else if (nameLower.includes('banking ledger') || nameLower.includes('swrzee')) {
-        mapped = 'assets/projects/project-3.webp';
-        url = '/projects/banking-ledger';
-      } else if (mapped) {
+      if (!mapped) {
+        if (nameLower.includes('interview-ai') || nameLower.includes('bodo okhrang')) {
+          mapped = 'assets/projects/1.webp';
+          url = url || '/projects/interview-ai';
+        } else if (nameLower.includes('whiteboard') || nameLower.includes('white board') || nameLower.includes('flopshop')) {
+          mapped = 'assets/projects/12.webp';
+          url = url || '/projects/whiteboard';
+        } else if (nameLower.includes('code reviewer') || nameLower.includes('crewspace')) {
+          mapped = 'assets/projects/2.webp';
+        } else if (nameLower.includes('edu hub') || nameLower.includes('kokrajhar university')) {
+          mapped = 'assets/projects/project-2.webp';
+        } else if (nameLower.includes('banking ledger') || nameLower.includes('swrzee')) {
+          mapped = 'assets/projects/project-3.webp';
+          url = url || '/projects/banking-ledger';
+        }
+      } else {
         mapped = mapped.replace(/\.png$/, '.webp').replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp');
       }
       return { ...fp, hover_src: mapped, url };

@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo -p 3000",
-    "dev-webpack": "next dev -p 3000",
-    "build": "next build",
+    "dev": "node scripts/compress-images.js && next dev --turbo -p 3000",
+    "dev-webpack": "node scripts/compress-images.js && next dev -p 3000",
+    "build": "node scripts/compress-images.js && next build",
     "start": "next start",
     "lint": "next lint"
   },

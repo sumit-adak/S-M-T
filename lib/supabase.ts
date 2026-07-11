@@ -10,6 +10,8 @@
  * with zero rebuild — same behaviour as before.
  */
 
+import { ASSET_VERSION } from './version';
+
 export const SB_REVALIDATE = 120; // seconds, mirrors SB_CACHE_TTL
 
 function env(key: string): string | undefined {
@@ -66,16 +68,20 @@ export async function sbSetting<T = any>(
 /** Prefix root-relative asset paths ("assets/…") with `base`; pass URLs through. */
 export function sbAsset(path: string | null | undefined, base = '/'): string {
   if (!path) return '';
-  if (/^https?:\/\//.test(path)) return path;
   
-  let cleanPath = path.replace(/^\/+/, '');
-  // Map png/jpg/jpeg to webp for target folders we compressed (excluding SVGs)
-  if (
-    /^(assets\/portfolio|assets\/projects|assets\/skills|assets\/sumit-hero|assets\/sumit-contact)/i.test(cleanPath) &&
-    !cleanPath.endsWith('.svg')
-  ) {
-    cleanPath = cleanPath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+  let result = path;
+  if (!/^https?:\/\//.test(path)) {
+    let cleanPath = path.replace(/^\/+/, '');
+    // Map png/jpg/jpeg to webp for target folders we compressed (excluding SVGs)
+    if (
+      /^(assets\/portfolio|assets\/projects|assets\/skills|assets\/sumit-hero|assets\/sumit-contact)/i.test(cleanPath) &&
+      !cleanPath.endsWith('.svg')
+    ) {
+      cleanPath = cleanPath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+    }
+    result = base + cleanPath;
   }
   
-  return base + cleanPath;
+  const separator = result.includes('?') ? '&' : '?';
+  return `${result}${separator}v=${ASSET_VERSION}`;
 }
