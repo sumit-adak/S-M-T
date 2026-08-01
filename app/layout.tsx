@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import SmoothScroll from './components/SmoothScroll';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sumitadak.dev'),
@@ -42,9 +43,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Italiana&family=Cinzel:wght@400;500;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap"
           rel="stylesheet"
         />
-        {/* Critical anti-FOUC: the dark loader covers the screen from the very
-            first paint, so a navigation never flashes white before the main
-            stylesheet finishes loading. */}
         <style
           dangerouslySetInnerHTML={{
             __html:
@@ -52,7 +50,6 @@ export default function RootLayout({
           }}
         />
         <noscript>
-          {/* eslint-disable-next-line react/no-danger */}
           <style
             dangerouslySetInnerHTML={{
               __html:
@@ -62,6 +59,7 @@ export default function RootLayout({
         </noscript>
       </head>
       <body suppressHydrationWarning className="is-loading">
+        <SmoothScroll />
         {children}
       </body>
     </html>

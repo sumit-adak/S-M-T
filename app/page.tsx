@@ -10,6 +10,7 @@ import JourneyWrapper from './components/JourneyWrapper';
 import ContactCharacter from './components/ContactCharacter';
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
+import HeroParallax from './components/HeroParallax';
 import Image from 'next/image';
 
 // Home re-checks Supabase every 120s (mirrors the PHP disk-cache TTL).
@@ -182,88 +183,98 @@ export default async function Home() {
       <div className="page">
         <SiteHeader active="home" base="/" />
         {/* ===================== HERO ===================== */}
-        <section id="home" className="hero" data-nav-section>
-          <div className="hero-grid-overlay" aria-hidden="true"></div>
+        <HeroParallax>
+          <section id="home" className="hero" data-nav-section>
+            <div className="hero-grid-overlay" aria-hidden="true"></div>
 
-          <div className="hero-ghost" aria-hidden="true">sumit — sumit</div>
+            <div className="hero-ghost" aria-hidden="true" data-parallax-layer="1">sumit — sumit</div>
 
-          <div className="hero-inner">
-            <div className="hero-left">
-              <p className="hero-eyebrow mono">{heroEyebrow}</p>
+            <div className="hero-inner" data-parallax-layers>
+              <div className="hero-left">
+                <div data-parallax-layer="1">
+                  <p className="hero-eyebrow mono">{heroEyebrow}</p>
+                </div>
 
-              <h1 className="hero-title interactive-title" aria-label="SUMIT ADAK">
-                <span className="line first-name">
-                  <span className="char" data-char="S">S</span>
-                  <span className="char" data-char="U">U</span>
-                  <span className="char" data-char="M">M</span>
-                  <span className="char" id="char-I" data-char="I">I</span>
-                  <span className="char" data-char="T">T</span>
-                </span>
-                <span className="line last-name">
-                  <span className="char" data-char="A">A</span>
-                  <span className="char" data-char="D">D</span>
-                  <span className="char" data-char="A">A</span>
-                  <span className="char" data-char="K">K</span>
-                </span>
-              </h1>
+                <div data-parallax-layer="2">
+                  <h1 className="hero-title interactive-title" aria-label="SUMIT ADAK">
+                    <span className="line first-name">
+                      <span className="char" data-char="S">S</span>
+                      <span className="char" data-char="U">U</span>
+                      <span className="char" data-char="M">M</span>
+                      <span className="char" id="char-I" data-char="I">I</span>
+                      <span className="char" data-char="T">T</span>
+                    </span>
+                    <span className="line last-name">
+                      <span className="char" data-char="A">A</span>
+                      <span className="char" data-char="D">D</span>
+                      <span className="char" data-char="A">A</span>
+                      <span className="char" data-char="K">K</span>
+                    </span>
+                  </h1>
 
-              <svg className="hero-swoosh" viewBox="0 0 420 40" aria-hidden="true">
-                <path d="M6 30 C 110 6, 240 6, 300 22 S 400 30, 414 14" />
-              </svg>
-
-              <p className="hero-copy">
-                {String(heroCopy).split('\n').map((part, i, arr) => (
-                  <span key={i}>{part}{i < arr.length - 1 ? <br /> : null}</span>
-                ))}
-              </p>
-
-              <div className="social-row">
-                {socials.map((so, i) => (
-                  <a key={i} href={so.url} target="_blank" className="social-icon">{so.label}</a>
-                ))}
-              </div>
-
-              <div className="cta-row">
-                <a href={sbAsset(resumeUrl)} target="_blank" download="Sumit_Adak_Resume.pdf" className="resume-btn" data-resume-link>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 16L7 11H10V4H14V11H17L12 16ZM6 18V20H18V18H6Z" fill="currentColor" />
+                  <svg className="hero-swoosh" viewBox="0 0 420 40" aria-hidden="true">
+                    <path d="M6 30 C 110 6, 240 6, 300 22 S 400 30, 414 14" />
                   </svg>
-                  resume
-                </a>
-                <a href="/projects" className="btn-pill cta-secondary">see the work <span className="arr">→</span></a>
+                </div>
+
+                <div data-parallax-layer="3">
+                  <p className="hero-copy">
+                    {String(heroCopy).split('\n').map((part, i, arr) => (
+                      <span key={i}>{part}{i < arr.length - 1 ? <br /> : null}</span>
+                    ))}
+                  </p>
+
+                  <div className="social-row">
+                    {socials.map((so, i) => (
+                      <a key={i} href={so.url} target="_blank" className="social-icon">{so.label}</a>
+                    ))}
+                  </div>
+
+                  <div className="cta-row">
+                    <a href={sbAsset(resumeUrl)} target="_blank" download="Sumit_Adak_Resume.pdf" className="resume-btn" data-resume-link>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 16L7 11H10V4H14V11H17L12 16ZM6 18V20H18V18H6Z" fill="currentColor" />
+                      </svg>
+                      resume
+                    </a>
+                    <a href="/projects" className="btn-pill cta-secondary">see the work <span className="arr">→</span></a>
+                  </div>
+                </div>
+
+                <div data-parallax-layer="4">
+                  <div className="stats">
+                    {stats.map((st, i) => {
+                      const { href, external } = navHref(st.link);
+                      return (
+                        <div className="stat-item" key={i}>
+                          <h2><span className="plus">+</span><span className="count" data-target={Math.trunc(st.value)}>{Math.trunc(st.value)}</span>{st.suffix ?? ''}</h2>
+                          <p>{st.label}<br /><a href={href} {...(external ? { target: '_blank' } : {})}>{st.link_text}</a></p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
 
-              <div className="stats">
-                {stats.map((st, i) => {
-                  const { href, external } = navHref(st.link);
-                  return (
-                    <div className="stat-item" key={i}>
-                      <h2><span className="plus">+</span><span className="count" data-target={Math.trunc(st.value)}>{Math.trunc(st.value)}</span>{st.suffix ?? ''}</h2>
-                      <p>{st.label}<br /><a href={href} {...(external ? { target: '_blank' } : {})}>{st.link_text}</a></p>
-                    </div>
-                  );
-                })}
+              <div className="hero-right" data-parallax-layer="3">
+                <div className="portrait-card">
+                  <Image src="/assets/sumit-hero.webp" alt="Sumit Adak Portrait" width={480} height={518} priority />
+                  <span className="portrait-badge">sumit<span className="amber">.</span> — based in india</span>
+                </div>
               </div>
             </div>
 
-            <div className="hero-right">
-              <div className="portrait-card">
-                <Image src="/assets/sumit-hero.webp" alt="Sumit Adak Portrait" width={480} height={518} priority />
-                <span className="portrait-badge">sumit<span className="amber">.</span> — based in india</span>
-              </div>
+            <div className="scroll-cue" aria-hidden="true" data-parallax-layer="4">
+              <span>scroll</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <line x1="12" y1="2" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                <line x1="4.93" y1="19.07" x2="19.07" y2="4.93"></line>
+              </svg>
             </div>
-          </div>
-
-          <div className="scroll-cue" aria-hidden="true">
-            <span>scroll</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-              <line x1="12" y1="2" x2="12" y2="22"></line>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
-              <line x1="4.93" y1="19.07" x2="19.07" y2="4.93"></line>
-            </svg>
-          </div>
-        </section>
+          </section>
+        </HeroParallax>
 
         {/* ===================== THE JOURNEY 3D EXPERIENCE ===================== */}
         <JourneyWrapper />

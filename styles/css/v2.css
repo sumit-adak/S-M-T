@@ -1,3 +1,5 @@
+@import "./kinetic-navigation.css";
+
 /* ============================================================
    VEESHAL.ME — v2 "Code & Cinema" design system
    Cinematic garage / motorsport editorial
@@ -205,9 +207,68 @@ body.cursor-portfolio-hover .cursor-dot {
     position: fixed;
     inset: 0;
     z-index: 9990;
-    background: transparent !important;
+    background: #000000 !important;
     pointer-events: auto;
     overflow: hidden;
+}
+
+/* Galaxy Loader Styling */
+.loader-galaxy-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.loader-center-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    pointer-events: auto;
+}
+
+.loader-progress-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+}
+
+.loader-enter-btn {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 2.5rem;
+    border-radius: 9999px;
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: loaderPulse 2s ease-in-out infinite;
+}
+
+.loader-enter-btn:hover {
+    background: rgba(124, 58, 237, 0.25);
+    border-color: rgba(168, 85, 247, 0.8);
+    letter-spacing: 0.35em;
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(168, 85, 247, 0.6);
+}
+
+@keyframes loaderPulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
 }
 
 /* Phase 1: Percentage Counter */
@@ -2125,3 +2186,25 @@ body.cursor-typography-hover .cursor-ring {
     border-color: rgba(255, 255, 255, 0.8);
     background: rgba(124, 58, 237, 0.08);
 }
+
+/* Lenis Smooth Scroll CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
